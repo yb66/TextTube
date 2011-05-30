@@ -14,11 +14,9 @@ module MarkdownFilters
     # @param [String] num The reference number.
     Markdown = ->(lnk, num){ %Q![#{lnk}](##{num} "Jump to reference")! }
     
-    class << self
-     
       # Takes markdown content with ref links and turns it into 100% markdown.
       # @param [String] content The markdown content with links to ref.
-      def run(content, params={})
+      def self.run(content, params={})
         
         cur = 0 #current number
         links = [ ] #to store the matches
@@ -54,29 +52,41 @@ module MarkdownFilters
         
       end
       
-      # This func outputs the link as valid markdown.
-      # @param [Hash] options Options hash.
-      # @param [Array<String,String>] links A list of 2-length arrays containing the url and the description.
-      # @option options [true,false] :top_html_rule Whether to put a horizontal rule across the top of the link.
-      # @option options [true,false] :bottom_html_rule Whether to put a horizontal rule across the bottom of the link.
-      # @option options [String,nil] :div Name of the div to wrap reference links in. Defaults to "reflinks". Set to nil for no div.
-      # @return [String] The string formatted as markdown e.g. `[http://cheat.errtheblog.com/s/yard/more/and/m...](http://cheat.errtheblog.com/s/yard/more/and/more/and/more/ "http://cheat.errtheblog.com/s/yard/more/and/more/and/more/")`
-      def format_links( links, options={top_html_rule: true, bottom_html_rule: true, div: "reflinks"} )
-        text = "##{options[:div]}'\n" unless options[:div].nil?
-        text += "* * *\n" if options[:top_html_rule] # produces an hr html rule
-        cur = 0
-        links.each do |lnk|
-          display_link = lnk.first.length >= 45 ? 
-                            lnk.first[0,45] + "..." : 
-                            lnk.first
-          text += %Q!\n<a name="#{cur}"></a>[#{cur}] [#{display_link}](#{lnk.first} "#{lnk.first}") #{lnk.last}\n\n!
-          cur += 1
-        end
-        text += "\n- - -" if options[:bottom_html_rule]  # produces an hr html rule
+    # This func outputs the link as valid markdown.
+    # @param [Hash] options Options hash.
+    # @param [Array<String,String>] links A list of 2-length arrays containing the url and the description.
+    # @option options [true,false] :top_html_rule Whether to put a horizontal rule across the top of the link.
+    # @option options [true,false] :bottom_html_rule Whether to put a horizontal rule across the bottom of the link.
+    # @option options [String,nil] :div Name of the div to wrap reference links in. Defaults to "reflinks". Set to nil for no div.
+    # @return [String] The string formatted as markdown e.g. `[http://cheat.errtheblog.com/s/yard/more/and/m...](http://cheat.errtheblog.com/s/yard/more/and/more/and/more/ "http://cheat.errtheblog.com/s/yard/more/and/more/and/more/")`
+    def self.format_links( links, options={top_html_rule: true, bottom_html_rule: true, div: "reflinks"} )
+      text = ""
+      text += "* * *\n" if options[:top_html_rule] # produces an hr html rule
+      cur = 0
+      links.each do |lnk|
+        display_link = lnk.first.length >= 45 ? 
+                          lnk.first[0,45] + "..." : 
+                          lnk.first
+        text += %Q!\n<a name="#{cur}"></a>[#{cur}] [#{display_link}](#{lnk.first} "#{lnk.first}") #{lnk.last}\n\n!
+        cur += 1
+      end
+      text += "\n- - -" if options[:bottom_html_rule]  # produces an hr html rule
+      LinkReffing.divit( options[:div] ) do
         text
       end
-  
-    end#class methods
+    end
+      
+    # wraps things in a div. If no id given, no div.
+    def self.divit( id=nil )
+      if id.nil?
+        yield 
+      else
+        "<div id='#{id}'>" +
+          yield +
+        "</div>"
+      end
+    end
+      
     
   end#class
  
