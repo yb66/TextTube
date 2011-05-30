@@ -59,9 +59,8 @@ module MarkdownFilters
     # @option options [true,false] :bottom_html_rule Whether to put a horizontal rule across the bottom of the link.
     # @option options [String,nil] :div Name of the div to wrap reference links in. Defaults to "reflinks". Set to nil for no div.
     # @return [String] The string formatted as markdown e.g. `[http://cheat.errtheblog.com/s/yard/more/and/m...](http://cheat.errtheblog.com/s/yard/more/and/more/and/more/ "http://cheat.errtheblog.com/s/yard/more/and/more/and/more/")`
-    def self.format_links( links, options={top_html_rule: true, bottom_html_rule: true, div: "reflinks"} )
+    def self.format_links( links, options={div: "reflinks"} )
       text = ""
-      text += "* * *\n" if options[:top_html_rule] # produces an hr html rule
       cur = 0
       links.each do |lnk|
         display_link = lnk.first.length >= 45 ? 
@@ -70,7 +69,6 @@ module MarkdownFilters
         text += %Q!\n<a name="#{cur}"></a>[#{cur}] [#{display_link}](#{lnk.first} "#{lnk.first}") #{lnk.last}\n\n!
         cur += 1
       end
-      text += "\n- - -" if options[:bottom_html_rule]  # produces an hr html rule
       LinkReffing.divit( options[:div] ) do
         text
       end
