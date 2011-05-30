@@ -4,7 +4,7 @@ $:.unshift lib unless $:.include?(lib)
 
 
 Gem::Specification.new do |s|
-  s.name           = "MarkdownFilters"
+  s.name           = "markdownfilters"
   s.summary        = "Some useful filters for markdown that I use in my blogs"
   s.description = <<-EOF
     RandomPerson is a port to Ruby of Perl's Data::RandomPerson. Use it to generate random persons given various parameters, such as country, age and gender ratio.

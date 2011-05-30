@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>/Volumes/RubyProjects/MarkdownFilters/markdownfilters.gemspec</string>
+	<string>markdownfilters.gemspec</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -21,7 +21,7 @@
 	<integer>299</integer>
 	<key>metaData</key>
 	<dict>
-		<key>/Volumes/RubyProjects/MarkdownFilters/lib/markdownfilters.rb</key>
+		<key>lib/markdownfilters.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
@@ -35,7 +35,7 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>/Volumes/RubyProjects/MarkdownFilters/lib/markdownfilters/link_reffing.rb</key>
+		<key>lib/markdownfilters/link_reffing.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
@@ -49,14 +49,14 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>/Volumes/RubyProjects/MarkdownFilters/markdownfilters.gemspec</key>
+		<key>markdownfilters.gemspec</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>43</integer>
+				<integer>31</integer>
 				<key>line</key>
-				<integer>16</integer>
+				<integer>6</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -66,13 +66,13 @@
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>/Volumes/RubyProjects/MarkdownFilters/lib/markdownfilters.rb</string>
-		<string>/Volumes/RubyProjects/MarkdownFilters/markdownfilters.gemspec</string>
-		<string>/Volumes/RubyProjects/MarkdownFilters/lib/markdownfilters/link_reffing.rb</string>
+		<string>lib/markdownfilters.rb</string>
+		<string>markdownfilters.gemspec</string>
+		<string>lib/markdownfilters/link_reffing.rb</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{130, 4}, {825, 731}}</string>
+	<string>{{10, 4}, {825, 731}}</string>
 </dict>
 </plist>

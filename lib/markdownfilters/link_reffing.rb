@@ -47,7 +47,7 @@ module MarkdownFilters
         
         if r.match content
           replacement = content.gsub( r, &blk ) + "\n"
-          replacement + Link_reffing.format_links(links) unless links.empty?
+          replacement + LinkReffing.format_links(links) unless links.empty?
         else
           content
         end
