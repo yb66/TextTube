@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.description = <<-EOF
     RandomPerson is a port to Ruby of Perl's Data::RandomPerson. Use it to generate random persons given various parameters, such as country, age and gender ratio.
   EOF
-  s.version        = "0.0.2"
+  s.version        = "0.0.3"
   s.platform       = Gem::Platform::RUBY
   s.require_paths  << 'ext'
   s.required_ruby_version    = ">= 1.9.1"
