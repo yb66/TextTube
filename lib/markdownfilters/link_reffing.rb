@@ -79,7 +79,7 @@ module MarkdownFilters
       if id.nil?
         yield 
       else
-        "<div id='#{id}'>" +
+        "<div markdown='1' id='#{id}'>" +
           yield +
         "</div>"
       end
