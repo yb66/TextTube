@@ -66,7 +66,7 @@ module MarkdownFilters
         display_link = lnk.first.length >= 45 ? 
                           lnk.first[0,45] + "..." : 
                           lnk.first
-        text += %Q!\n<a name="#{cur}"></a>&#91;#{cur}&#93; [#{display_link}](#{lnk.first} "#{lnk.first}") #{lnk.last}\n\n!
+        text += %Q!\n<a name="#{cur}"></a>#{LeftSq}#{cur}#{RightSq} [#{display_link}](#{lnk.first} "#{lnk.first}") #{lnk.last}\n\n!
         cur += 1
       end
       LinkReffing.divit( options[:div] ) do
@@ -85,6 +85,8 @@ module MarkdownFilters
       end
     end
       
+    LeftSq = "&#91;"
+    RightSq = "&#93;"
     
   end#class
  
