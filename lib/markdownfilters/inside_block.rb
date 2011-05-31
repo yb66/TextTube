@@ -1,5 +1,7 @@
 # encoding: UTF-8
 module MarkdownFilters
+  
+  # This finds html tags with "markdown='1'" as an attribute, runs markdown over the contents, then removes the markdown attribute
   class InsideBlock
     require 'hpricot'
     
