@@ -3,7 +3,12 @@ module MarkdownFilters
   class InsideBlock
     require 'hpricot'
     
-    def self.run( content, markdown_parser )    
+    
+    def self.run( content, markdown_parser=nil )    
+      if markdown_parser.nil?
+        require 'rdiscount' 
+        markdown_parser=RDiscount
+      end
       doc = Hpricot(content) 
       
       (doc/"*[@markdown='1']").each do |ele|  

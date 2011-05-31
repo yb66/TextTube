@@ -8,11 +8,8 @@ module MarkdownFilters
   #     :photobucket => ['http://www.photobucket.com/',->(w,h,url){ %Q!! }],
       :youtube => {
         name: 'http://www.youtube.com/',
-        html: ->(w,h,url){ <<-END
-          <iframe title="YouTube video player" class="youtube-player" type="text/html" width="#{w}" height="#{h}" src="#{url}" frameborder="0"></iframe>
-  END
-            },
-        url_morph: ->(orig){ orig.sub( %r{watch\?v=}, 'embed/') }
+        html: ->(w,h,url){ %Q!<iframe title="YouTube video player" class="youtube-player" type="text/html" width="#{w}" height="#{h}" src="#{url}" frameborder="0"></iframe>!.strip},
+                          url_morph: ->(orig){ orig.sub( %r{watch\?v=}, 'embed/') }
         },
   #     :dailymotion => ['http://dailymotion.com/',->(w,h,url){ %Q!! }],
   #     :ifilm => ['http://ifilm.com/',->(w,h,url){ %Q!! }],
