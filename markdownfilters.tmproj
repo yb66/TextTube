@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>markdownfilters.gemspec</string>
+	<string>lib/markdownfilters/embedding_music.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -21,42 +21,42 @@
 	<integer>299</integer>
 	<key>metaData</key>
 	<dict>
+		<key>CHANGES</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>lib/markdownfilters.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>36</integer>
+				<integer>42</integer>
 				<key>line</key>
-				<integer>2</integer>
+				<integer>4</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>lib/markdownfilters/link_reffing.rb</key>
+		<key>lib/markdownfilters/embedding_music.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>13</integer>
+				<integer>18</integer>
 				<key>line</key>
-				<integer>6</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>markdownfilters.gemspec</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>31</integer>
-				<key>line</key>
-				<integer>6</integer>
+				<integer>3</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -67,12 +67,12 @@
 	<key>openDocuments</key>
 	<array>
 		<string>lib/markdownfilters.rb</string>
-		<string>markdownfilters.gemspec</string>
-		<string>lib/markdownfilters/link_reffing.rb</string>
+		<string>lib/markdownfilters/embedding_music.rb</string>
+		<string>CHANGES</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{10, 4}, {825, 731}}</string>
+	<string>{{107, 15}, {825, 731}}</string>
 </dict>
 </plist>
