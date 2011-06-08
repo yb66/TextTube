@@ -16,6 +16,8 @@ Gem::Specification.new do |s|
   s.author         = "Iain Barnett"
   s.files          = ['Rakefile', 'markdownfilters.gemspec']
   s.files          += Dir['lib/**/*.rb']
+  s.add_dependency('hpricot', '>=0.8.4' )
+  s.add_dependency('rdiscount', '>=1.6.8' )
   s.email          = "iainspeed @nospam@ gmail.com"
   s.test_files     = Dir.glob('spec/*.rb')
   s.signing_key    = ENV['HOME'] + '/.ssh/gem-private_key.pem'
