@@ -1,3 +1,5 @@
+v0.1.0 Added HTML5 audio tag support.
+
 v0.0.3 Added better div wrapper for links
 
 v0.0.2 Added filter for embedding video. Only Youtube for now.
