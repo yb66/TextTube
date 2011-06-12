@@ -1,7 +1,7 @@
 # encoding: UTF-8
 module MarkdownFilters
 
-  class EmbeddingMusic
+  class EmbeddingAudio
   
     def run(content, params={})
     
@@ -17,7 +17,7 @@ END
     
       # [music[link|name]]
       r_link = /             # [music[url|description]]
-        \[music\[        # opening square brackets
+        \[audio\[        # opening square brackets
           ([^\|]+)     # link
             \|      # separator
           ([^\[]+)  # description
