@@ -3,12 +3,12 @@ module MarkdownFilters
 
   class EmbeddingAudio
   
-    def run(content, params={})
+    def self.run(content, params={})
     
       html = ->(link,desc){ <<END
 <div class="music">
   <h3>#{desc}</h3>
-  <audio src="/files/#{link}" controls="controls">
+  <audio src="/streams/#{link}" controls="controls">
   Your browser does not support the audio element.
   </audio>
 </div>
