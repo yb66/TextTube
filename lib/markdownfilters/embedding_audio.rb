@@ -4,7 +4,6 @@ module MarkdownFilters
   class EmbeddingAudio
   
     DEFAULTS = {
-      autostart: false,
       loop:      false,
       src_base:  "/streams/",
       preload:   "metadata",
