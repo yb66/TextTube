@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.description = <<-EOF
     Some markdown filters I find useful.
   EOF
-  s.version        = "0.1.2"
+  s.version        = "0.2.0"
   s.platform       = Gem::Platform::RUBY
   s.require_paths  << 'ext'
   s.required_ruby_version    = ">= 1.9.1"
