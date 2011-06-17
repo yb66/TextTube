@@ -17,12 +17,8 @@ module MarkdownFilters
     describe EmbeddingAudio do
       context "Given some text" do
         let(:content) { "[audio[a24.m4a|A24]]" }
-        let(:expected) { <<STR
-      <div class="audio">
-        <h3>A24</h3>
-        <audio src='/streams/a24.m4a' autostart='false' loop='false' preload='metadata' controls='controls'>Your browser does not support HTML5, update your browser you fool!</audio>
-      </div>
-STR
+        let(:expected) {
+%q[<div class='audio'> <h3>A24</h3> <audio src='/streams/a24.m4a' autostart='false' loop='false' preload='metadata' controls='controls'>Your browser does not support HTML5, update your browser you fool!</audio> </div>]
         }
         context "containing valid extended markdown for audio" do
           context "with no options" do

@@ -33,12 +33,13 @@ module MarkdownFilters
     
     def self.render_tag(link,desc,attributes)
       fallback_text = attributes.delete(:fallback_text) 
-      <<-END
-      <div class="audio">
+      tag = <<-END
+      <div class='audio'>
         <h3>#{desc}</h3>
         <audio src='#{attributes.delete(:src_base)}#{link}' #{attributes.map{|(k,v)| "#{k}='#{v}'" }.join(" ")}>#{fallback_text}</audio>
       </div>
       END
+      tag.strip.gsub /\s+/, " "
     end
 
   end # class
