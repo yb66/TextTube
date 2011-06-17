@@ -4,7 +4,6 @@ module MarkdownFilters
   class EmbeddingAudio
   
     DEFAULTS = {
-      loop:      false,
       src_base:  "/streams/",
       preload:   "metadata",
       fallback_text: "Your browser does not support HTML5, update your browser you fool!",
@@ -29,16 +28,14 @@ module MarkdownFilters
       }
     
     end
-    
+     
     def self.render_tag(link,desc,attributes)
-      fallback_text = attributes.delete(:fallback_text) 
-      tag = <<-END
-      <div class='audio'>
-        <h3>#{desc}</h3>
-        <audio src='#{attributes.delete(:src_base)}#{link}' #{attributes.map{|(k,v)| "#{k}='#{v}'" }.join(" ")}>#{fallback_text}</audio>
-      </div>
-      END
-      tag.strip.gsub /\s+/, " "
+      fallback_text = attributes.delete(:fallback_text)
+      src_base = attributes.delete(:src_base)
+      make_inner = ->(lnk){%Q!<source src='#{src_base}#{lnk}' type='audio/#{File.extname(lnk)[1..-1]}' />!}
+      inner = make_inner.( link )
+      inner += make_inner.( link.sub(/m4a$/, "ogg") ) if File.extname(link) == ".m4a"
+      %Q!<div class='audio'><h3>#{desc}</h3><audio #{attributes.map{|(k,v)| "#{k}='#{v}'" }.join(" ")}>#{inner}#{fallback_text}</audio></div>!.strip.gsub /\s+/, " "
     end
 
   end # class

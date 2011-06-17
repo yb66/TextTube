@@ -18,7 +18,7 @@ module MarkdownFilters
       context "Given some text" do
         let(:content) { "[audio[a24.m4a|A24]]" }
         let(:expected) {
-%q[<div class='audio'> <h3>A24</h3> <audio src='/streams/a24.m4a' loop='false' preload='metadata' controls='controls'>Your browser does not support HTML5, update your browser you fool!</audio> </div>]
+%q[<div class='audio'><h3>A24</h3><audio preload='metadata' controls='controls'><source src='/streams/a24.m4a' type='audio/m4a' /><source src='/streams/a24.ogg' type='audio/ogg' />Your browser does not support HTML5, update your browser you fool!</audio></div>]
         }
         context "containing valid extended markdown for audio" do
           context "with no options" do
