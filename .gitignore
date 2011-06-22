@@ -1,4 +1,5 @@
 *.old
+*.tmproj
 .DS_Store
 
 *.gem
