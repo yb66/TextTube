@@ -20,6 +20,7 @@ module MarkdownFilters
     /x
     
     def self.run(content, options={})
+      options ||= {}
       attributes = DEFAULTS.merge options
            
       content.gsub( R_link ) { |m|

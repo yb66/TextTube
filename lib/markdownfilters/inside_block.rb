@@ -6,7 +6,8 @@ module MarkdownFilters
     require 'hpricot'
     
     
-    def self.run( content, options={})    
+    def self.run( content, options={})   
+      options ||= {} 
       if options[:markdown_parser].nil?
         require 'rdiscount' 
         markdown_parser=RDiscount
