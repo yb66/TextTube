@@ -1,3 +1,5 @@
+v0.4.0 Made API more consistent and added more specs.
+
 v0.3.0 Source now supports ogg files in tandem with m4a, as a fallback for Firefox and other stuck up browsers.
 
 v0.2.0 Made audio able to take options, it's html5, and it has specs.
