@@ -34,6 +34,12 @@ module MarkdownFilters
         end # context
       end # context
       
+      context "Given no text" do
+        subject { MarkdownFilters::LinkReffing.run "" }
+        it { should_not be_nil }
+        it { should == "" }
+      end # context
+      
     end # describe LinkReffing
   end # describe MarkdownFilters
 end # module 
