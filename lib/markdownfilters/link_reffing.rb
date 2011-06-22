@@ -12,11 +12,11 @@ module MarkdownFilters
     # a lambda function to transform a link and a number into a markdown reference link
     # @param [String] lnk The url.
     # @param [String] num The reference number.
-    Markdown = ->(lnk, num){ %Q![#{lnk}](##{num} "Jump to reference")! }
+    Markdowner = ->(lnk, num){ %Q![#{lnk}](##{num} "Jump to reference")! }
     
       # Takes markdown content with ref links and turns it into 100% markdown.
       # @param [String] content The markdown content with links to ref.
-      def self.run(content, params={})
+      def self.run(content, options={})
         
         cur = 0 #current number
         links = [ ] #to store the matches
@@ -28,7 +28,7 @@ module MarkdownFilters
           ref_tag += UNITS[mags.last] #units
           
           
-          format = params[:format].nil? ? Markdown : params[:format] # markdown is the default format
+          format = options[:format].nil? ? Markdowner : options[:format] # markdown is the default format
           retval = format.(ref_tag,cur)
           cur = cur + 1 #increase current number
       
