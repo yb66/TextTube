@@ -17,7 +17,7 @@ module MarkdownFilters
       # Takes markdown content with ref links and turns it into 100% markdown.
       # @param [String] content The markdown content with links to ref.
       def self.run(content, options={})
-        
+        options ||= {}
         cur = 0 #current number
         links = [ ] #to store the matches
         
