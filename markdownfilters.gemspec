@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   EOF
   s.version        = "0.4.0"
   s.platform       = Gem::Platform::RUBY
-  s.require_paths  = "lib" 
+  s.require_path  = "lib" 
   s.required_ruby_version    = ">= 1.9.1"
   s.author         = "Iain Barnett"
   s.files          = `git ls-files`.split("\n")
