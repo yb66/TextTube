@@ -8,7 +8,7 @@ module MarkdownFilters
   class Coderay
 
     def self.run(content, options={})
-      options = {lang: :ruby } if options.empty? || options.nil? 
+      options = {lang: :ruby } if options.nil? || options.empty? 
       doc = Hpricot(content) 
 
       code_blocks = (doc/"pre/code").map do |code_block| 
