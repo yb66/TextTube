@@ -1,3 +1,5 @@
+v1.0.0 Added coderay filter
+
 v0.4.0 Made API more consistent and added more specs.
 
 v0.3.0 Source now supports ogg files in tandem with m4a, as a fallback for Firefox and other stuck up browsers.
