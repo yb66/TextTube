@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 module MarkdownFilters
-  VERSION = "0.1.0"
+  VERSION = "1.0.1"
 end
 
 require_relative "./markdownfilters/link_reffing.rb"

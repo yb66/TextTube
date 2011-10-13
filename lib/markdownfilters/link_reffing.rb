@@ -14,43 +14,43 @@ module MarkdownFilters
     # @param [String] num The reference number.
     Markdowner = ->(lnk, num){ %Q![#{lnk}](##{num} "Jump to reference")! }
     
-      # Takes markdown content with ref links and turns it into 100% markdown.
-      # @param [String] content The markdown content with links to ref.
-      def self.run(content, options={})
-        options ||= {}
-        cur = 0 #current number
-        links = [ ] #to store the matches
-        
-        blk = ->(m) do  #block to pass to gsub
-          links << [$1, $2] # add to the words list
-          mags = cur.divmod(10) #get magnitude of number
-          ref_tag = mags.first >= 1 ? UNITS[mags.first] : '' #sort out tens
-          ref_tag += UNITS[mags.last] #units
-          
-          
-          format = options[:format].nil? ? Markdowner : options[:format] # markdown is the default format
-          retval = format.(ref_tag,cur)
-          cur = cur + 1 #increase current number
+    # Takes markdown content with ref links and turns it into 100% markdown.
+    # @param [String] content The markdown content with links to ref.
+    def self.run(content, options={})
+      options ||= {}
+      cur = 0 #current number
+      links = [ ] #to store the matches
       
-          retval
-        end
+      blk = ->(m) do  #block to pass to gsub
+        links << [$1, $2] # add to the words list
+        mags = cur.divmod(10) #get magnitude of number
+        ref_tag = mags.first >= 1 ? UNITS[mags.first] : '' #sort out tens
+        ref_tag += UNITS[mags.last] #units
         
-        r = /              # [[link|description]]
-              \[\[         # opening square brackets
-                (\S+)      # link
-                  \s*\|\s* # separator
-                ([^\[]+)   # description
-              \]\]         # closing square brackets
-            /x 
         
-        if r.match content
-          replacement = content.gsub( r, &blk ) + "\n"
-          replacement + LinkReffing.format_links(links) unless links.empty?
-        else
-          content
-        end
-        
+        format = options[:format].nil? ? Markdowner : options[:format] # markdown is the default format
+        retval = format.(ref_tag,cur)
+        cur = cur + 1 #increase current number
+    
+        retval
       end
+      
+      r = /              # [[link|description]]
+            \[\[         # opening square brackets
+              (\S+)      # link
+                \s*\|\s* # separator
+              ([^\[]+)   # description
+            \]\]         # closing square brackets
+          /x 
+      
+      if r.match content
+        replacement = content.gsub( r, &blk ) + "\n"
+        replacement + LinkReffing.format_links(links) unless links.empty?
+      else
+        content
+      end
+      
+    end
       
     # This func outputs the link as valid markdown.
     # @param [Hash] options Options hash.
