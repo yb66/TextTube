@@ -1,3 +1,5 @@
+v1.0.3 Bug fix
+
 v1.0.2 Using named html entities for some of the superscript numbers as some browsers aren't rendering the codes properly.
 
 v1.0.0 Added coderay filter

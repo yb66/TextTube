@@ -27,7 +27,7 @@ module MarkdownFilters
         else
           code = Coderay.codify(Coderay.html_unescape(inner_html), options[:lang]) 
           code_block.inner_html = code 
-          code_block["class"] = "Coderay"    
+          code_block["class"] = "CodeRay"    
         end      
       end#block
 
