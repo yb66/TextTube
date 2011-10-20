@@ -7,7 +7,7 @@ module MarkdownFilters
   class LinkReffing
     
     # These are the html codes for superscript 0 - 9
-    UNITS = ['&#8304;', '&#185;', '&#178;', '&#179;', '&#8308;', '&#8309;', '&#8310;', '&#8311;', '&#8312;', '&#8313;'] #unicode superscript numbers
+    UNITS = ['&#8304;', '&sup1;', '&sup2;', '&sup3;', '&#8308;', '&#8309;', '&#8310;', '&#8311;', '&#8312;', '&#8313;'] #unicode superscript numbers
     
     # a lambda function to transform a link and a number into a markdown reference link
     # @param [String] lnk The url.
