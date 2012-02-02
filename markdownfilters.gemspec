@@ -14,8 +14,8 @@ Gem::Specification.new do |s|
   s.required_ruby_version    = ">= 1.9.1"
   s.author         = "Iain Barnett"
   s.files          = `git ls-files`.split("\n")
-  s.add_dependency('hpricot', '>=0.8.4' )
-  s.add_dependency('rdiscount', '>=1.6.8' )
+  s.add_dependency("hpricot", '~>0.8.4' )
+  s.add_dependency("rdiscount", '~>1.6.8' )
   s.email          = "iainspeed @nospam@ gmail.com"
   s.test_files     = `git ls-files -- {test,spec,features}`.split("\n")
 end
