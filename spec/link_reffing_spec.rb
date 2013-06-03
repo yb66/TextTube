@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-require 'rspec'
+require 'spec_helper'
 require 'logger'
 require_relative "../lib/markdownfilters/link_reffing.rb"
 
