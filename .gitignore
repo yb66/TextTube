@@ -15,3 +15,8 @@
 *.zip
 pkg
 rdoc
+.rspec
+Gemfile.lock
+bin/
+vendor/
+coverage/
