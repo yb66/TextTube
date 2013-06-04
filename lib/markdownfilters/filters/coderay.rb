@@ -2,7 +2,7 @@
 module MarkdownFilters
 
   require 'hpricot'
-  require_relative "../ext/blank.rb"
+  require_relative "../../ext/blank.rb"
   require 'coderay'
 
   # a filter for Coderay

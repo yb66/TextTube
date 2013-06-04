@@ -1,7 +1,8 @@
 # encoding: utf-8
 
 require 'spec_helper'
-require_relative "../lib/markdownfilters/coderay.rb"
+require_relative "../lib/markdownfilters.rb"
+require_relative "../lib/markdownfilters/filters/coderay.rb"
 
 module MarkdownFilters
   describe MarkdownFilters do
