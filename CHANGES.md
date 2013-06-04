@@ -1,5 +1,13 @@
 # CH CH CH CHANGES! #
 
+## v2.0.0, Tuesday the 4th of June, 2013 ##
+
+* Added an abstract superclass so that filters can be sorted by type. Makes it easier to do things like "run all the before filters".
+* Moved the filters to their own directory, just to be organised.
+
+----
+
+
 ## v1.1.0, Monday the 3rd of June, 2013 ##
 
 * Reorganised to use Simplecov, Yard etc.
