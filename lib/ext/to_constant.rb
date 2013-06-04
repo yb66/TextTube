@@ -1,7 +1,7 @@
-module MarkdownFilter
+module MarkdownFilters
 
   # Core lib extensions reside here.
-  module Extensions
+  module CoreExtensions
     # to_constant tries to find a declared constant with the name specified
     # in the string. It raises a NameError when the name is not in CamelCase
     # or is not initialized.
@@ -22,5 +22,5 @@ end
 
 # Standard lib String class gets some extras.
 class String
-  include Sinatra::Suggestable::Extensions
+  include MarkdownFilters::CoreExtensions
 end
