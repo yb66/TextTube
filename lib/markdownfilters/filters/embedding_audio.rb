@@ -1,7 +1,7 @@
 # encoding: UTF-8
 module MarkdownFilters
 
-  class EmbeddingAudio
+  class EmbeddingAudio < Before
   
     DEFAULTS = {
       src_base:  "/streams/",
@@ -27,9 +27,9 @@ module MarkdownFilters
         url,desc = $1,$2
         EmbeddingAudio::render_tag(url,desc,attributes)
       }
-    
     end
-     
+
+
     def self.render_tag(link,desc,attributes)
       fallback_text = attributes.delete(:fallback_text)
       src_base = attributes.delete(:src_base)

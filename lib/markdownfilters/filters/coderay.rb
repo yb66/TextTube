@@ -2,11 +2,11 @@
 module MarkdownFilters
 
   require 'hpricot'
-  require_relative "../ext/blank.rb"
+  require_relative "../../ext/blank.rb"
   require 'coderay'
 
   # a filter for Coderay
-  class Coderay
+  class Coderay < After
 
     def self.run(content, options={})
       options = {lang: :ruby } if options.blank? 

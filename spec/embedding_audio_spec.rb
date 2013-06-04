@@ -1,18 +1,12 @@
 # encoding: utf-8
 
 require 'spec_helper'
-require 'logger'
-require_relative "../lib/markdownfilters/embedding_audio.rb"
+require_relative "../lib/markdownfilters.rb"
+require_relative "../lib/markdownfilters/filters/embedding_audio.rb"
 
 
 module MarkdownFilters
   describe MarkdownFilters do
-    let(:logger){
-      require 'logger'
-      logger = Logger.new(STDOUT)
-      logger.level = Logger::DEBUG
-      logger
-    }
 
     describe EmbeddingAudio do
       context "Given some text" do

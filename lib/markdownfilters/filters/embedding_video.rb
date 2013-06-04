@@ -1,6 +1,6 @@
 # encoding: UTF-8
 module MarkdownFilters
-  class EmbeddingVideo
+  class EmbeddingVideo < Before
 
     SITES = {
       #     "video.google".to_sym => ['http://www.video.google.com/',->(w,h,url){ %Q!! }],
