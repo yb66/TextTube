@@ -1,18 +1,11 @@
 # encoding: utf-8
 
 require 'spec_helper'
-require 'logger'
-require_relative "../lib/markdownfilters/link_reffing.rb"
+require_relative "../lib/markdownfilters.rb"
+require_relative "../lib/markdownfilters/filters/link_reffing.rb"
 
 module MarkdownFilters
   describe MarkdownFilters do
-    let(:logger){
-      require 'logger'
-      logger = Logger.new(STDOUT)
-      logger.level = Logger::DEBUG
-      logger
-    }
-
     describe LinkReffing do
       context "Given some text" do
         context "With a link to be reffed in it" do
