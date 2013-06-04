@@ -1,17 +1,10 @@
 # encoding: utf-8
 
 require 'spec_helper'
-require 'logger'
 require_relative "../lib/markdownfilters/coderay.rb"
 
 module MarkdownFilters
   describe MarkdownFilters do
-    let(:logger){
-      require 'logger'
-      logger = Logger.new(STDOUT)
-      logger.level = Logger::DEBUG
-      logger
-    }
     
     let(:coderayed){ 
 %Q!<h2>Hello</h2>\n\n<p>This is some code:</p>\n\n<pre><code class="CodeRay">[<span class="integer">1</span>,<span class="integer">2</span>,<span class="integer">3</span>].map{|x| + <span class="integer">1</span> }\n</code></pre>\n\n<p>And this is the result:\n  [2,3,4]</p>\n\n<p>Thankyou</p>\n!
