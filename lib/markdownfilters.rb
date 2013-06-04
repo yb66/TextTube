@@ -18,4 +18,6 @@ module MarkdownFilters
        }
   end
 
+  class Before; end
+  class After; end
 end

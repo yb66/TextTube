@@ -6,7 +6,7 @@ module MarkdownFilters
   require 'coderay'
 
   # a filter for Coderay
-  class Coderay
+  class Coderay < After
 
     def self.run(content, options={})
       options = {lang: :ruby } if options.blank? 

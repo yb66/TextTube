@@ -1,7 +1,7 @@
 # encoding: UTF-8
 module MarkdownFilters
 
-  class EmbeddingAudio
+  class EmbeddingAudio < Before
   
     DEFAULTS = {
       src_base:  "/streams/",
