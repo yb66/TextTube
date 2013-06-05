@@ -3,6 +3,7 @@
 require_relative "./ext/blank.rb"
 require_relative "./ext/to_constant.rb"
 
+# The original. Maybe. I haven't checked.
 module MarkdownFilters
 
   # Require all the filters.
@@ -18,6 +19,11 @@ module MarkdownFilters
        }
   end
 
+  # Here simply for its ability to type.
+  # @abstract
   class Before; end
+
+  # Here simply for its ability to type.
+  # @abstract
   class After; end
 end

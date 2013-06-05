@@ -1,18 +1,21 @@
 # encoding: UTF-8
 module MarkdownFilters
 
-  require 'hpricot'
+  require 'nokogiri'
   require_relative "../../ext/blank.rb"
   require 'coderay'
 
   # a filter for Coderay
   class Coderay < After
 
+    # @param [String] content
+    # @param [Hash] options
+    # @return [String]
     def self.run(content, options={})
       options = {lang: :ruby } if options.blank? 
-      doc = Hpricot(content) 
+      doc = Nokogiri::HTML::fragment(content) 
 
-      code_blocks = (doc/"pre/code").map do |code_block| 
+      code_blocks = doc.xpath("pre/code").map do |code_block| 
         #un-escape as Coderay will escape it again
         inner_html = code_block.inner_html
         
@@ -35,11 +38,19 @@ module MarkdownFilters
       doc.to_s
     end#def
 
+    # @private
+    # Unescape the HTML as the Coderay scanner won't work otherwise.
     def self.html_unescape(a_string) 
       a_string.gsub('&amp;', '&').gsub('&lt;', '<').gsub('&gt;', 
       '>').gsub('&quot;', '"') 
     end#def
 
+    # Run the Coderay scanner.
+    # @private
+    # @param [String] str
+    # @param [String] lang
+    # @example
+    #   self.class.codify "x = 2", "ruby"
     def self.codify(str, lang) 
       CodeRay.scan(str, lang).html
     end#def

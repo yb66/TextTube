@@ -1,8 +1,10 @@
 # encoding: UTF-8
 module MarkdownFilters
 
+  # Embed some audio via [audio[link|name]]
   class EmbeddingAudio < Before
   
+    # default attributes
     DEFAULTS = {
       src_base:  "/streams/",
       preload:   "metadata",
@@ -18,7 +20,11 @@ module MarkdownFilters
         ([^\[]+)  # description
       \]\]        # closing square brackets
     /x
-    
+
+
+    # @param [String] content
+    # @param [Hash] options
+    # @return [String]
     def self.run(content, options={})
       options ||= {}
       attributes = DEFAULTS.merge options
@@ -30,6 +36,11 @@ module MarkdownFilters
     end
 
 
+    # Does the grunt work of rendering the tag.
+    # @private
+    # @param [String] link
+    # @param [String] desc
+    # @param [Hash] attributes
     def self.render_tag(link,desc,attributes)
       fallback_text = attributes.delete(:fallback_text)
       src_base = attributes.delete(:src_base)
