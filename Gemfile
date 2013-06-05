@@ -7,15 +7,18 @@ gem "rake"
 
 group :documentation do
   gem "yard"
-  gem "maruku"
+  gem "rdiscount"
 end
 
 group :development do
-  gem "maruku"
+  gem "rdiscount"
   gem "wirble"
 end
 
 group :test do
   gem "rspec"
   gem "simplecov", :require => false
+  gem "maruku"
+  gem "rdiscount"
+  gem "kramdown"
 end
