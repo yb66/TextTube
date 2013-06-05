@@ -1,5 +1,14 @@
 # CH CH CH CHANGES! #
 
+## v3.0.0, Wednesday the 5th of June, 2013 ##
+
+* Not using Hpricot anymore, I don't think it's being maintained. Moved to Nokogiri.
+* Added more specs.
+* Added much more docs. Got 100% coverage.
+
+----
+
+
 ## v2.0.0, Tuesday the 4th of June, 2013 ##
 
 * Added an abstract superclass so that filters can be sorted by type. Makes it easier to do things like "run all the before filters".
