@@ -84,8 +84,10 @@ module MarkdownFilters
         "</div>"
       end
     end
-      
+
+    # HTML code for [
     LeftSq = "&#91;"
+    # HTML code for ]
     RightSq = "&#93;"
     
   end#class

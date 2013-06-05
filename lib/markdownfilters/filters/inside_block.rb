@@ -1,18 +1,21 @@
 # encoding: UTF-8
+require 'nokogiri'
+
 module MarkdownFilters
   
   # This finds html tags with "markdown='1'" as an attribute, runs markdown over the contents, then removes the markdown attribute, allowing markdown within html blocks
   class InsideBlock < After
-    require 'hpricot'
     
-    
+    # @param [String] content
+    # @param [Hash] options
+    # @option options [Constant] The markdown parser to use. I'm not sure this bit really works for other parsers than RDiscount.    
     def self.run( content, options={})   
       options ||= {} 
       if options[:markdown_parser].nil?
         require 'rdiscount' 
         markdown_parser=RDiscount
       end
-      doc = Hpricot(content) 
+      doc = Nokogiri::HTML::fragment(content) 
       
       (doc/"*[@markdown='1']").each do |ele|  
         ele.inner_html = markdown_parser.new(ele.inner_html).to_html

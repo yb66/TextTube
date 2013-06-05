@@ -11,6 +11,7 @@ module MarkdownFilters
   end
 end
 
+# Standard lib class.
 class Hash
   include MarkdownFilters::CoreExtensions
 end
