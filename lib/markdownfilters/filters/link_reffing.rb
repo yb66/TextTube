@@ -52,7 +52,7 @@ module MarkdownFilters
       
     end
       
-    # This func outputs the link as valid markdown.
+    # This func outputs the link as valid HTML.
     # @param [Hash] options Options hash.
     # @param [Array<String,String>] links A list of 2-length arrays containing the url and the description.
     # @option options [true,false] :top_html_rule Whether to put a horizontal rule across the top of the link.
@@ -76,13 +76,7 @@ module MarkdownFilters
       
     # wraps things in a div. If no id given, no div.
     def self.divit( id=nil )
-      if id.nil?
-        yield 
-      else
-        "<div markdown='1' id='#{id}'>" +
-          yield +
-        "</div>"
-      end
+      id ? "<div markdown='1' id='#{id}'>#{ yield }</div>" : yield
     end
 
     # HTML code for [
