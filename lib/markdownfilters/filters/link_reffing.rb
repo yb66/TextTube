@@ -39,10 +39,8 @@ module MarkdownFilters
     def self.run(content, options={})
       return content if content.blank?
       options ||= {}
-      warn "options = #{options.inspect}"
       kind = options.fetch :kind, :reference
       format = options.fetch( :format, :markdown )
-      warn "kind: #{kind} format: #{format}"
       formatter = if kind == :none
                     if format == :html
                       HTMLer
@@ -56,8 +54,7 @@ module MarkdownFilters
                       Reffer
                     end
                   end
-      warn "formatter = #{formatter.inspect}"
-
+      
       div_id =  options.has_key?(:div_id) ? 
                   options[:div_id] :
                   :reflinks
