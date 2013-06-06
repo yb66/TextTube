@@ -31,20 +31,20 @@ HTML
           }
           include_examples "outputting links"
         end
-        context "and an option not to ref the link" do
+        context "and an option not to ref the link (i.e. inline)" do
           let(:expected) {
             "The UtterFAIL website [UtterFAIL!](http://utterfail.info) is good. My blog [My blog](http://iainbarnett.me.uk) is also good."
           }
           subject {
-            MarkdownFilters::LinkReffing.run content, kind: :none
+            MarkdownFilters::LinkReffing.run content, kind: :inline
           }
           include_examples "outputting links"
-          context "" do
+          context "and use HTML" do
             let(:expected) {
               %Q$The UtterFAIL website <a href="http://utterfail.info">UtterFAIL!</a> is good. My blog <a href="http://iainbarnett.me.uk">My blog</a> is also good.$
             }
             subject {
-              MarkdownFilters::LinkReffing.run content, kind: :none, format: :html
+              MarkdownFilters::LinkReffing.run content, kind: :inline, format: :html
             }
             include_examples "outputting links"
           end
@@ -63,6 +63,17 @@ HTML
         s.strip
       }
           subject { MarkdownFilters::LinkReffing.run content, format: :html }
+          include_examples "outputting links"
+        end
+        context "and an option to not show the link at all" do
+          let(:expected) { s = <<HTML
+The UtterFAIL website is good. My blog is also good.
+HTML
+            s.strip
+          }
+          subject {
+            MarkdownFilters::LinkReffing.run content, kind: :none
+          }
           include_examples "outputting links"
         end
       end # context

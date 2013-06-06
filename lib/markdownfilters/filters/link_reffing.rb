@@ -29,11 +29,13 @@ module MarkdownFilters
 
     Markdowner = ->(lnk, desc){ %Q! [#{desc}](#{lnk})! }
 
+#     Noner = ->(_,_) { "" } # this isn't needed but will sit here as a reminder.
+
 
     # Takes markdown content with ref links and turns it into 100% markdown.
     # @param [String] content The markdown content with links to ref.
     # @option options [#to_s] :format The format of the link you want added. The options are :html, :markdown. The default is :markdown
-    # @option options [#to_s] :kind The kind of link you want added. The options are :reference, :none. The default is :reference
+    # @option options [#to_s] :kind The kind of link you want added. The options are :reference, :inline, :none. The default is :reference
     # @option options [String,nil] :div_id ID of the div to wrap reference links in. Defaults to "reflinks". Set to nil or false for no div.
     # @return [String] The string formatted as markdown e.g. `[http://cheat.errtheblog.com/s/yard/more/and/m...](http://cheat.errtheblog.com/s/yard/more/and/more/and/more/ "http://cheat.errtheblog.com/s/yard/more/and/more/and/more/")`
     def self.run(content, options={})
@@ -41,12 +43,14 @@ module MarkdownFilters
       options ||= {}
       kind = options.fetch :kind, :reference
       format = options.fetch( :format, :markdown )
-      formatter = if kind == :none
+      formatter = if kind == :inline
                     if format == :html
                       HTMLer
                     else
                       Markdowner
                     end
+                  elsif kind == :none
+                    nil # none is needed
                   else # kind == :reference
                     if format == :html
                       RefHTMLer
@@ -70,8 +74,10 @@ module MarkdownFilters
       
       content.gsub! Pattern do |md|  #block to pass to gsub
         has_reflinks = true
-        if kind == :none
+        if kind == :inline
           formatter.($1,$2)
+        elsif kind == :none
+          ""
         else # kind == :reference
           mags = cur.divmod(10) #get magnitude of number
           ref_tag = mags.first >= 1 ? 
