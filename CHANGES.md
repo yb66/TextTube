@@ -1,5 +1,12 @@
 # CH CH CH CHANGES! #
 
+## v4.0.0, Thursday the 6th of June, 2013 ##
+
+* Cleaned up the link reffing code quite a bit. Can take options now to determine type of process (reference links or inline) and the format of the links (markdown, html).
+
+----
+
+
 ## v3.0.0, Wednesday the 5th of June, 2013 ##
 
 * Not using Hpricot anymore, I don't think it's being maintained. Moved to Nokogiri.
