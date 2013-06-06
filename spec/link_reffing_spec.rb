@@ -36,13 +36,34 @@ HTML
             "The UtterFAIL website [UtterFAIL!](http://utterfail.info) is good. My blog [My blog](http://iainbarnett.me.uk) is also good."
           }
           subject {
-            MarkdownFilters::LinkReffing.run content, type: :normal
+            MarkdownFilters::LinkReffing.run content, kind: :none
           }
           include_examples "outputting links"
+          context "" do
+            let(:expected) {
+              %Q$The UtterFAIL website <a href="http://utterfail.info">UtterFAIL!</a> is good. My blog <a href="http://iainbarnett.me.uk">My blog</a> is also good.$
+            }
+            subject {
+              MarkdownFilters::LinkReffing.run content, kind: :none, format: :html
+            }
+            include_examples "outputting links"
+          end
         end
-        context "and an option to output a link 'normally'" do
-          subject { MarkdownFilters::LinkReffing.run content }
-          pending
+        context "and an option to output a link as HTML" do
+          let(:expected) { s = <<HTML
+The UtterFAIL website<a href="#0" title="Jump to reference">&#8304;</a> is good. My blog<a href="#1" title="Jump to reference">&sup1;</a> is also good.
+<div markdown='1' id='reflinks'>
+<a name="0"></a>&#91;0&#93; [http://utterfail.info](http://utterfail.info "http://utterfail.info") UtterFAIL!
+
+
+<a name="1"></a>&#91;1&#93; [http://iainbarnett.me.uk](http://iainbarnett.me.uk "http://iainbarnett.me.uk") My blog
+
+</div>
+HTML
+        s.strip
+      }
+          subject { MarkdownFilters::LinkReffing.run content, format: :html }
+          include_examples "outputting links"
         end
       end # context
       

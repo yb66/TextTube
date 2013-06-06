@@ -23,26 +23,41 @@ module MarkdownFilters
     # @param [String] num The reference number.
     Reffer = ->(lnk, num){ %Q![#{lnk}](##{num} "Jump to reference")!}
 
-    Markdowner = ->(lnk, num){ %Q!! }
+    RefHTMLer = ->(lnk, num){ %Q!<a href="##{num}" title="Jump to reference">#{lnk}</a>!  }
 
-    HTMLer = ->(lnk, num){ %Q!<a href="#{lnk}" title="Jump to reference">#{num}</a>!  }
-    
+    HTMLer = ->(lnk, desc){ %Q! <a href="#{lnk}">#{desc}</a>!  }
+
+    Markdowner = ->(lnk, desc){ %Q! [#{desc}](#{lnk})! }
+
+
     # Takes markdown content with ref links and turns it into 100% markdown.
     # @param [String] content The markdown content with links to ref.
-    # @option options [#to_s] :format The format of the link you want added. The options are :html, :normal, :reference. The default is :markdown
-    # @option options [#to_s] :type The kind of link you want added. The options are :reference, :normal, :none. The default is :reference
+    # @option options [#to_s] :format The format of the link you want added. The options are :html, :markdown. The default is :markdown
+    # @option options [#to_s] :kind The kind of link you want added. The options are :reference, :none. The default is :reference
     # @option options [String,nil] :div_id ID of the div to wrap reference links in. Defaults to "reflinks". Set to nil or false for no div.
     # @return [String] The string formatted as markdown e.g. `[http://cheat.errtheblog.com/s/yard/more/and/m...](http://cheat.errtheblog.com/s/yard/more/and/more/and/more/ "http://cheat.errtheblog.com/s/yard/more/and/more/and/more/")`
     def self.run(content, options={})
       return content if content.blank?
       options ||= {}
-      type = options.fetch :type, :reference
-      format = case options.fetch( :format, :reference )
-        when :html then HTMLer
-        when :normal then Markdowner
-        when :reference then Reffer
-        else Markdowner
-      end
+      warn "options = #{options.inspect}"
+      kind = options.fetch :kind, :reference
+      format = options.fetch( :format, :markdown )
+      warn "kind: #{kind} format: #{format}"
+      formatter = if kind == :none
+                    if format == :html
+                      HTMLer
+                    else
+                      Markdowner
+                    end
+                  else # kind == :reference
+                    if format == :html
+                      RefHTMLer
+                    else
+                      Reffer
+                    end
+                  end
+      warn "formatter = #{formatter.inspect}"
+
       div_id =  options.has_key?(:div_id) ? 
                   options[:div_id] :
                   :reflinks
@@ -58,16 +73,17 @@ module MarkdownFilters
       
       content.gsub! Pattern do |md|  #block to pass to gsub
         has_reflinks = true
-        if format == :normal
-        else
+        if kind == :none
+          formatter.($1,$2)
+        else # kind == :reference
           mags = cur.divmod(10) #get magnitude of number
           ref_tag = mags.first >= 1 ? 
                       UNITS[mags.first] :
                       '' #sort out tens
   
           ref_tag += UNITS[mags.last] #units
-        
-          retval = format.(ref_tag,cur)
+          retval = formatter.(ref_tag,cur)
+                     
           links << [$1, $2, cur] # add to the words list
           cur += 1 #increase current number
           retval
