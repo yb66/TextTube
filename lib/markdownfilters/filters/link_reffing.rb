@@ -21,13 +21,15 @@ module MarkdownFilters
     # a lambda function to transform a link and a number into a markdown reference link
     # @param [String] lnk The url.
     # @param [String] num The reference number.
-    Markdowner = ->(lnk, num){ %Q![#{lnk}](##{num} "Jump to reference")! }
+    Reffer = ->(lnk, num){ %Q![#{lnk}](##{num} "Jump to reference")!}
+
+    Markdowner = ->(lnk, num){ %Q!! }
 
     HTMLer = ->(lnk, num){ %Q!<a href="#{lnk}" title="Jump to reference">#{num}</a>!  }
     
     # Takes markdown content with ref links and turns it into 100% markdown.
     # @param [String] content The markdown content with links to ref.
-    # @option options [#to_s] :format The format of the link you want added. The options are :html, :markdown. The default is :markdown
+    # @option options [#to_s] :format The format of the link you want added. The options are :html, :normal, :reference. The default is :markdown
     # @option options [#to_s] :type The kind of link you want added. The options are :reference, :normal, :none. The default is :reference
     # @option options [String,nil] :div_id ID of the div to wrap reference links in. Defaults to "reflinks". Set to nil or false for no div.
     # @return [String] The string formatted as markdown e.g. `[http://cheat.errtheblog.com/s/yard/more/and/m...](http://cheat.errtheblog.com/s/yard/more/and/more/and/more/ "http://cheat.errtheblog.com/s/yard/more/and/more/and/more/")`
@@ -35,9 +37,10 @@ module MarkdownFilters
       return content if content.blank?
       options ||= {}
       type = options.fetch :type, :reference
-      format = case options.fetch( :format, :markdown )
+      format = case options.fetch( :format, :reference )
         when :html then HTMLer
-        when :markdown then Markdowner
+        when :normal then Markdowner
+        when :reference then Reffer
         else Markdowner
       end
       div_id =  options.has_key?(:div_id) ? 
@@ -50,25 +53,29 @@ module MarkdownFilters
       # this will remain false
       # and `divit` won't be run.
       has_reflinks = false
+
       links = [] #to store the matches
       
       content.gsub! Pattern do |md|  #block to pass to gsub
         has_reflinks = true
-        mags = cur.divmod(10) #get magnitude of number
-        ref_tag = mags.first >= 1 ? 
-                    UNITS[mags.first] :
-                    '' #sort out tens
-
-        ref_tag += UNITS[mags.last] #units
+        if format == :normal
+        else
+          mags = cur.divmod(10) #get magnitude of number
+          ref_tag = mags.first >= 1 ? 
+                      UNITS[mags.first] :
+                      '' #sort out tens
+  
+          ref_tag += UNITS[mags.last] #units
         
-        retval = format.(ref_tag,cur)
-        cur = cur + 1 #increase current number
-        links << [$1, $2, cur] # add to the words list
-        retval
+          retval = format.(ref_tag,cur)
+          links << [$1, $2, cur] # add to the words list
+          cur += 1 #increase current number
+          retval
+        end
       end
 
       if !links.empty?
-        if div_id
+        if has_reflinks && div_id
           "#{content}\n#{LinkReffing.divit( div_id ) { format_links(links) }}"
         else
           "#{content}\n#{format_links(links)}"

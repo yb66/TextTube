@@ -20,10 +20,10 @@ module MarkdownFilters
           let(:expected) { s = <<HTML
 The UtterFAIL website[&#8304;](#0 "Jump to reference") is good. My blog[&sup1;](#1 "Jump to reference") is also good.
 <div markdown='1' id='reflinks'>
-<a name="1"></a>&#91;1&#93; [http://utterfail.info](http://utterfail.info "http://utterfail.info") UtterFAIL!
+<a name="0"></a>&#91;0&#93; [http://utterfail.info](http://utterfail.info "http://utterfail.info") UtterFAIL!
 
 
-<a name="2"></a>&#91;2&#93; [http://iainbarnett.me.uk](http://iainbarnett.me.uk "http://iainbarnett.me.uk") My blog
+<a name="1"></a>&#91;1&#93; [http://iainbarnett.me.uk](http://iainbarnett.me.uk "http://iainbarnett.me.uk") My blog
 
 </div>
 HTML
@@ -32,8 +32,13 @@ HTML
           include_examples "outputting links"
         end
         context "and an option not to ref the link" do
-          subject { MarkdownFilters::LinkReffing.run content }
-          pending
+          let(:expected) {
+            "The UtterFAIL website [UtterFAIL!](http://utterfail.info) is good. My blog [My blog](http://iainbarnett.me.uk) is also good."
+          }
+          subject {
+            MarkdownFilters::LinkReffing.run content, type: :normal
+          }
+          include_examples "outputting links"
         end
         context "and an option to output a link 'normally'" do
           subject { MarkdownFilters::LinkReffing.run content }
