@@ -8,81 +8,119 @@ module MarkdownFilters
     
     # These are the html codes for superscript 0 - 9
     UNITS = ['&#8304;', '&sup1;', '&sup2;', '&sup3;', '&#8308;', '&#8309;', '&#8310;', '&#8311;', '&#8312;', '&#8313;'] #unicode superscript numbers
+
+    # Matches [[link|description]]
+    Pattern = /              
+          \[\[                      # opening square brackets
+            (?<link>\S+)
+              \s*\|\s*              # separator
+            (?<description>[^\[]+)
+          \]\]                      # closing square brackets
+        /x
     
     # a lambda function to transform a link and a number into a markdown reference link
     # @param [String] lnk The url.
     # @param [String] num The reference number.
-    Markdowner = ->(lnk, num){ %Q![#{lnk}](##{num} "Jump to reference")! }
-    
+    Reffer = ->(lnk, num){ %Q![#{lnk}](##{num} "Jump to reference")!}
+
+    RefHTMLer = ->(lnk, num){ %Q!<a href="##{num}" title="Jump to reference">#{lnk}</a>!  }
+
+    HTMLer = ->(lnk, desc){ %Q! <a href="#{lnk}">#{desc}</a>!  }
+
+    Markdowner = ->(lnk, desc){ %Q! [#{desc}](#{lnk})! }
+
+#     Noner = ->(_,_) { "" } # this isn't needed but will sit here as a reminder.
+
+
     # Takes markdown content with ref links and turns it into 100% markdown.
     # @param [String] content The markdown content with links to ref.
+    # @option options [#to_s] :format The format of the link you want added. The options are :html, :markdown. The default is :markdown
+    # @option options [#to_s] :kind The kind of link you want added. The options are :reference, :inline, :none. The default is :reference
+    # @option options [String,nil] :div_id ID of the div to wrap reference links in. Defaults to "reflinks". Set to nil or false for no div.
+    # @return [String] The string formatted as markdown e.g. `[http://cheat.errtheblog.com/s/yard/more/and/m...](http://cheat.errtheblog.com/s/yard/more/and/more/and/more/ "http://cheat.errtheblog.com/s/yard/more/and/more/and/more/")`
     def self.run(content, options={})
+      return content if content.blank?
       options ||= {}
+      kind = options.fetch :kind, :reference
+      format = options.fetch( :format, :markdown )
+      formatter = if kind == :inline
+                    if format == :html
+                      HTMLer
+                    else
+                      Markdowner
+                    end
+                  elsif kind == :none
+                    nil # none is needed
+                  else # kind == :reference
+                    if format == :html
+                      RefHTMLer
+                    else
+                      Reffer
+                    end
+                  end
+      
+      div_id =  options.has_key?(:div_id) ? 
+                  options[:div_id] :
+                  :reflinks
+
       cur = 0 #current number
-      links = [ ] #to store the matches
+
+      # if there are no reflinks found
+      # this will remain false
+      # and `divit` won't be run.
+      has_reflinks = false
+
+      links = [] #to store the matches
       
-      blk = ->(m) do  #block to pass to gsub
-        links << [$1, $2] # add to the words list
-        mags = cur.divmod(10) #get magnitude of number
-        ref_tag = mags.first >= 1 ? UNITS[mags.first] : '' #sort out tens
-        ref_tag += UNITS[mags.last] #units
-        
-        
-        format = options[:format].nil? ? Markdowner : options[:format] # markdown is the default format
-        retval = format.(ref_tag,cur)
-        cur = cur + 1 #increase current number
-    
-        retval
+      content.gsub! Pattern do |md|  #block to pass to gsub
+        has_reflinks = true
+        if kind == :inline
+          formatter.($1,$2)
+        elsif kind == :none
+          ""
+        else # kind == :reference
+          mags = cur.divmod(10) #get magnitude of number
+          ref_tag = mags.first >= 1 ? 
+                      UNITS[mags.first] :
+                      '' #sort out tens
+  
+          ref_tag += UNITS[mags.last] #units
+          retval = formatter.(ref_tag,cur)
+                     
+          links << [$1, $2, cur] # add to the words list
+          cur += 1 #increase current number
+          retval
+        end
       end
-      
-      r = /              # [[link|description]]
-            \[\[         # opening square brackets
-              (\S+)      # link
-                \s*\|\s* # separator
-              ([^\[]+)   # description
-            \]\]         # closing square brackets
-          /x 
-      
-      if r.match content
-        replacement = content.gsub( r, &blk ) + "\n"
-        replacement + LinkReffing.format_links(links) unless links.empty?
+
+      if !links.empty?
+        if has_reflinks && div_id
+          "#{content}\n#{LinkReffing.divit( div_id ) { format_links(links) }}"
+        else
+          "#{content}\n#{format_links(links)}"
+        end
       else
         content
       end
-      
     end
-      
+
+
     # This func outputs the link as valid markdown.
-    # @param [Hash] options Options hash.
-    # @param [Array<String,String>] links A list of 2-length arrays containing the url and the description.
-    # @option options [true,false] :top_html_rule Whether to put a horizontal rule across the top of the link.
-    # @option options [true,false] :bottom_html_rule Whether to put a horizontal rule across the bottom of the link.
-    # @option options [String,nil] :div Name of the div to wrap reference links in. Defaults to "reflinks". Set to nil for no div.
-    # @return [String] The string formatted as markdown e.g. `[http://cheat.errtheblog.com/s/yard/more/and/m...](http://cheat.errtheblog.com/s/yard/more/and/more/and/more/ "http://cheat.errtheblog.com/s/yard/more/and/more/and/more/")`
-    def self.format_links( links, options={div: "reflinks"} )
-      text = ""
-      cur = 0
-      links.each do |lnk|
-        display_link = lnk.first.length >= 45 ? 
-                          lnk.first[0,45] + "..." : 
-                          lnk.first
-        text += %Q!\n<a name="#{cur}"></a>#{LeftSq}#{cur}#{RightSq} [#{display_link}](#{lnk.first} "#{lnk.first}") #{lnk.last}\n\n!
-        cur += 1
-      end
-      LinkReffing.divit( options[:div] ) do
-        text
-      end
+    # @param [Array<String,String,Integer>] links A list of 2-length arrays containing the url and the description and the reference number.
+    def self.format_links( links )
+      links.map{ |(link, description, cur)|
+        display_link = link.length >= 45 ? 
+                          link[0,45] + "..." : 
+                          link
+        %Q!\n<a name="#{cur}"></a>#{LeftSq}#{cur}#{RightSq} [#{display_link}](#{link} "#{link}") #{description}\n\n!
+      }.join
     end
-      
-    # wraps things in a div. If no id given, no div.
-    def self.divit( id=nil )
-      if id.nil?
-        yield 
-      else
-        "<div markdown='1' id='#{id}'>" +
-          yield +
-        "</div>"
-      end
+
+
+    # Wraps things in a div. If no id given, no div.
+    # @param [#to_s] id The ID attribute for the div.
+    def self.divit( id )
+      "<div markdown='1' id='#{id}'>#{ yield }</div>"
     end
 
     # HTML code for [
