@@ -40,7 +40,7 @@ module MarkdownFilters
   #   # => "abc"
   class Base < ::String
   
-    DEFAULT_OPTIONS = {mouse: "house"}
+    DEFAULT_OPTIONS = {}
     attr_accessor :config
 
     # @param [#to_s] text The original text.
