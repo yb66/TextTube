@@ -9,7 +9,7 @@ module MarkdownFilters
   module LinkReffing
     extend Filterable
     
-    filter_with :linkref do |text|
+    filter_with :linkreffed do |text|
       MarkdownFilters::LinkReffing.run text
     end
     

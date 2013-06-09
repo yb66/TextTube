@@ -4,10 +4,10 @@ require_relative "../filterable.rb"
 module MarkdownFilters
 
   # Embed video via [embed_SIZE[url|description]]
-  class EmbeddingVideo
+  module EmbeddingVideo
     extend MarkdownFilters::Filterable
   
-    filter_with :double do |text|
+    filter_with :embedded_video do |text|
       MarkdownFilters::EmbeddingVideo.run text
     end
 

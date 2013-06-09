@@ -5,10 +5,10 @@ require_relative "../filterable.rb"
 module MarkdownFilters
   
   # This finds html tags with "markdown='1'" as an attribute, runs markdown over the contents, then removes the markdown attribute, allowing markdown within html blocks
-  class InsideBlock
+  module InsideBlock
     extend MarkdownFilters::Filterable
   
-    filter_with :inside_block do |text|
+    filter_with :inside_blocks do |text|
       MarkdownFilters::InsideBlock.run text
     end
     

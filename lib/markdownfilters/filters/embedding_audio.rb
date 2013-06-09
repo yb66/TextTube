@@ -4,10 +4,10 @@ require_relative "../filterable.rb"
 module MarkdownFilters
 
   # Embed some audio via [audio[link|name]]
-  class EmbeddingAudio
+  module EmbeddingAudio
     extend MarkdownFilters::Filterable
   
-    filter_with :embed_audio do |text|
+    filter_with :embedded_audio do |text|
       MarkdownFilters::EmbeddingAudio.run text
     end
   
