@@ -2,6 +2,21 @@
 
 I use these, you can use them too!
 
+### Link Reffing ###
+
+If you'd don't want your links inline and would prefer to have them at the bottom of the document, then you can use this:
+    
+    The UtterFAIL website [UtterFAIL!](http://utterfail.info) is good. My blog [My blog](http://iainbarnett.me.uk) is also good.
+
+and it will produce this:
+
+    The UtterFAIL website[&#8304;](#0 "Jump to reference") is good. My blog[&sup1;](#1 "Jump to reference") is also good.
+    <a name="0"></a>&#91;0&#93; [http://utterfail.info](http://utterfail.info "http://utterfail.info") UtterFAIL!
+    
+    
+    <a name="1"></a>&#91;1&#93; [http://iainbarnett.me.uk](http://iainbarnett.me.uk "http://iainbarnett.me.uk") My blog
+
+
 ### Licence ###
 
 Copyright (c) 2012 Iain Barnett
