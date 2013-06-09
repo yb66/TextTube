@@ -173,7 +173,7 @@ rainfall 99_998
 HTML
     }
     let(:my_f) { MyFilter.new content }
-    subject { my_f.filter :embedded_video, :embedded_audio, :linkreffed, :maruku, :coderay, :inside_blocks }
+    subject { my_f.filter :embedded_video, :embedded_audio, :linkreffed, :rdiscount, :coderay, :inside_blocks }
     it { should == expected }
   end
 end
