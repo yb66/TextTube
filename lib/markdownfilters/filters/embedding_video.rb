@@ -1,8 +1,15 @@
 # encoding: UTF-8
+require_relative "../filterable.rb"
+
 module MarkdownFilters
 
   # Embed video via [embed_SIZE[url|description]]
-  class EmbeddingVideo < Before
+  class EmbeddingVideo
+    extend MarkdownFilters::Filterable
+  
+    filter_with :double do |text|
+      MarkdownFilters::EmbeddingVideo.run text
+    end
 
     # List of available sites.
     SITES = {

@@ -1,8 +1,15 @@
 # encoding: UTF-8
+require_relative "../filterable.rb"
+
 module MarkdownFilters
 
   # Embed some audio via [audio[link|name]]
-  class EmbeddingAudio < Before
+  class EmbeddingAudio
+    extend MarkdownFilters::Filterable
+  
+    filter_with :embed_audio do |text|
+      MarkdownFilters::EmbeddingAudio.run text
+    end
   
     # default attributes
     DEFAULTS = {

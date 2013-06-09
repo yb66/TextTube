@@ -4,9 +4,16 @@ module MarkdownFilters
   require 'nokogiri'
   require_relative "../../ext/blank.rb"
   require 'coderay'
+  require_relative "../filterable.rb"
 
   # a filter for Coderay
-  class Coderay < After
+  module Coderay
+    extend Filterable
+
+    filter_with :coderay do |text|
+      MarkdownFilters::Coderay.run text
+    end
+
 
     # @param [String] content
     # @param [Hash] options
