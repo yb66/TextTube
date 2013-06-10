@@ -32,7 +32,13 @@ module MarkdownFilters
           options=current
           current=self
         end
-        block.call current, options
+        options = [options, @options, self.class.options].find{|opts|
+          !opts.nil? && 
+          opts.respond_to?(:keys) && 
+          !opts.empty?
+        } || {}
+
+        block.call current, options[name]
       end
     end
 

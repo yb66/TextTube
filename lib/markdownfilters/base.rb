@@ -46,13 +46,17 @@ module MarkdownFilters
     # @param [#to_s] text The original text.
     # @param [Hash] options
     def initialize( text, options={} )
-      @config = DEFAULT_OPTIONS.merge options
+      @options = DEFAULT_OPTIONS.merge options
       @filters ||= []
       super text
     end
 
 
     class << self
+
+      def options
+        @options ||= {}
+      end
 
       # remove all filters
       # @todo remove methods too.
@@ -110,10 +114,15 @@ module MarkdownFilters
     #   # => "---a b c---"
     #   n.filter :dashes, :spacial
     #   # => "- - - a b c - - -"
-    def filter( *order )
+    def filter( *order_and_options )
+      if order_and_options.last.respond_to?(:keys)
+        *order,options = *order_and_options
+      else
+        order,options = order_and_options, {}
+      end
       order = order.flatten
-      order = @config.fetch :order, self.class.filters if order.empty?
-      order.inject(self){|current,(filter,options)|
+      order = @options.fetch :order, self.class.filters if order.empty?
+      order.inject(self){|current,filter|
         send filter, current, options
       }
     end

@@ -9,8 +9,8 @@ module MarkdownFilters
   module LinkReffing
     extend Filterable
     
-    filter_with :linkreffed do |text|
-      MarkdownFilters::LinkReffing.run text
+    filter_with :linkreffed do |text, options|
+      MarkdownFilters::LinkReffing.run text, options
     end
     
     # These are the html codes for superscript 0 - 9
@@ -47,6 +47,7 @@ module MarkdownFilters
     # @return [String] The string formatted as markdown e.g. `[http://cheat.errtheblog.com/s/yard/more/and/m...](http://cheat.errtheblog.com/s/yard/more/and/more/and/more/ "http://cheat.errtheblog.com/s/yard/more/and/more/and/more/")`
     def self.run(content, options={})
       return content if content.blank?
+      text = content.dup
       options ||= {}
       kind = options.fetch :kind, :reference
       format = options.fetch( :format, :markdown )
@@ -79,7 +80,7 @@ module MarkdownFilters
 
       links = [] #to store the matches
       
-      content.gsub! Pattern do |md|  #block to pass to gsub
+      text.gsub! Pattern do |md|  #block to pass to gsub
         has_reflinks = true
         if kind == :inline
           formatter.($1,$2)
@@ -102,12 +103,12 @@ module MarkdownFilters
 
       if !links.empty?
         if has_reflinks && div_id
-          "#{content}\n#{LinkReffing.divit( div_id ) { format_links(links) }}"
+          "#{text}\n#{LinkReffing.divit( div_id ) { format_links(links) }}"
         else
-          "#{content}\n#{format_links(links)}"
+          "#{text}\n#{format_links(links)}"
         end
       else
-        content
+        text
       end
     end
 
