@@ -27,7 +27,7 @@ module MarkdownFilters
         inner_html = code_block.inner_html
         
         # following the convention of Rack::Codehighlighter
-        if inner_html.start_with?("::::") 
+        if inner_html.start_with?("::::")
           lines = inner_html.split("\n")
           options[:lang] = lines.shift.match(%r{::::(\w+)})[1].to_sym
           inner_html = lines.join("\n")
