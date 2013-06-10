@@ -1,10 +1,16 @@
 # encoding: UTF-8
 require 'nokogiri'
+require_relative "../filterable.rb"
 
 module MarkdownFilters
   
   # This finds html tags with "markdown='1'" as an attribute, runs markdown over the contents, then removes the markdown attribute, allowing markdown within html blocks
-  class InsideBlock < After
+  module InsideBlock
+    extend MarkdownFilters::Filterable
+  
+    filter_with :inside_blocks do |text|
+      MarkdownFilters::InsideBlock.run text
+    end
     
     # @param [String] content
     # @param [Hash] options

@@ -19,11 +19,5 @@ module MarkdownFilters
        }
   end
 
-  # Here simply for its ability to type.
-  # @abstract
-  class Before; end
 
-  # Here simply for its ability to type.
-  # @abstract
-  class After; end
 end
