@@ -2,6 +2,8 @@
 
 I use these, you can use them too!
 
+NOTE! This library is going through a *lot* of changes right now. Use directly at your peril! Feel free to take what you need from the source though, if you feel there may be something useful there.
+
 ### Link Reffing ###
 
 If you'd don't want your links inline and would prefer to have them at the bottom of the document, then you can use this:

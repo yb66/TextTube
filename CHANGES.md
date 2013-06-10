@@ -1,5 +1,12 @@
 # CH CH CH CHANGES! #
 
+## v5.0.0, Monday the 10th of June, 2013 ##
+
+* Completely changed the main interface. Now can take filters and run them in any order using a DSL.
+
+----
+
+
 ## v4.0.0, Thursday the 6th of June, 2013 ##
 
 * Cleaned up the link reffing code quite a bit. Can take options now to determine type of process (reference links or inline) and the format of the links (markdown, html).
