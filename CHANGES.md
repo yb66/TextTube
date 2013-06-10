@@ -1,6 +1,15 @@
 # CH CH CH CHANGES! #
 
-## v5.0.0, Monday the 10th of June, 2013 ##
+## Monday the 10th of June, 2013 ##
+
+### v5.0.1 ###
+
+* Improved spec for coderay scanner.
+
+----
+
+
+### v5.0.0 ###
 
 * Completely changed the main interface. Now can take filters and run them in any order using a DSL.
 
