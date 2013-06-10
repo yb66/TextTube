@@ -18,13 +18,37 @@ module MarkdownFilters
     describe Coderay do
       context "Given some text" do
         context "With some code to be rayed in it" do
-
-          let(:content) { notrayed }
-          let(:expected) { coderayed }
-
-          subject { MarkdownFilters::Coderay.run content }
-          it { should_not be_nil }
-          it { should == expected }
+          context "That has a language hint" do
+            let(:content) { <<CODE
+<pre><code>::::ruby
+{"one" => 1 }
+</code></pre>
+CODE
+            }
+            let(:expected) { <<HTML
+<pre><code class="CodeRay">{<span class="string"><span class="delimiter">"</span><span class="content">one</span><span class="delimiter">"</span></span> =&gt; <span class="integer">1</span> }</code></pre>
+HTML
+            }
+            let(:wrong) { <<CODE
+<pre><code>::::json
+{"one" => 1 }
+</code></pre>
+CODE
+            }
+  
+            subject { MarkdownFilters::Coderay.run content }
+            it { should_not be_nil }
+            it { should == expected }
+            it { should_not == MarkdownFilters::Coderay.run(wrong) }
+          end
+          context "That has no language hint" do
+            let(:content) { notrayed }
+            let(:expected) { coderayed }
+  
+            subject { MarkdownFilters::Coderay.run content }
+            it { should_not be_nil }
+            it { should == expected }
+          end
         end # context
         
         context "With no code to be rayed in it" do
