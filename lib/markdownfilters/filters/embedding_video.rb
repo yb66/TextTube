@@ -7,7 +7,7 @@ module MarkdownFilters
   module EmbeddingVideo
     extend MarkdownFilters::Filterable
   
-    filter_with :embedded_video do |text|
+    filter_with :embeddingvideo do |text|
       MarkdownFilters::EmbeddingVideo.run text
     end
 

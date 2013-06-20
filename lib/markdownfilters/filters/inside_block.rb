@@ -8,7 +8,7 @@ module MarkdownFilters
   module InsideBlock
     extend MarkdownFilters::Filterable
   
-    filter_with :inside_blocks do |text|
+    filter_with :insideblock do |text|
       MarkdownFilters::InsideBlock.run text
     end
     
