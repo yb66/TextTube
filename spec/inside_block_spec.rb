@@ -16,8 +16,7 @@ Sometimes this is useful.
 HTML
   }
   let(:expected) { <<HTML
-<div class="wrapper" id="sidebar">
-<h2>This is a sidebar</h2>
+<div class="wrapper" id="sidebar"><h2>This is a sidebar</h2>
 
 <ul>
 <li>Written</li>

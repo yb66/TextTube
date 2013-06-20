@@ -166,8 +166,7 @@ rainfall 99_998
 
 <p>Just to be clear, I ran this with Ruby 2.0.0-rc2 as well with the same results. It's a pity that Ruby fails at this kind of thing, because it is such an elegant and useful language that seems to have borrowed the best of many other niche languages. Recursion is often the most elegant <em>and</em> performant<a href="#1" title="Jump to reference">¹</a> solution.</p>
 
-<div id="reflinks">
-<p><a name="0"></a>[0] <a href="http://arxiv.org/abs/1304.5257" title="http://arxiv.org/abs/1304.5257">http://arxiv.org/abs/1304.5257</a> What Makes Code Hard to Understand? Michael Hansen, Robert L. Goldstone, Andrew Lumsdaine</p>
+<div id="reflinks"><p><a name="0"></a>[0] <a href="http://arxiv.org/abs/1304.5257" title="http://arxiv.org/abs/1304.5257">http://arxiv.org/abs/1304.5257</a> What Makes Code Hard to Understand? Michael Hansen, Robert L. Goldstone, Andrew Lumsdaine</p>
 
 <p><a name="1"></a>[1] <a href="http://dictionary.cambridge.org/dictionary/british/pedant" title="http://dictionary.cambridge.org/dictionary/british/pedant">http://dictionary.cambridge.org/dictionary/br...</a> If you're one of these then you won't like that I made a word up. Unfortunately for you, I'm British, which means that I understand that English is a living language, it is my tool not my master, and it has a long history of being changed to suit the speaker or writer. This is one such case.</p>
 </div>

@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require 'nokogiri'
+require 'hpricot'
 require_relative "../filterable.rb"
 
 module MarkdownFilters
@@ -21,7 +21,7 @@ module MarkdownFilters
         require 'rdiscount' 
         markdown_parser=RDiscount
       end
-      doc = Nokogiri::HTML::fragment(content) 
+      doc = Hpricot(content)
       
       (doc/"*[@markdown='1']").each do |ele|  
         ele.inner_html = markdown_parser.new(ele.inner_html).to_html
