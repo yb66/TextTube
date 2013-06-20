@@ -7,7 +7,7 @@ module MarkdownFilters
   module EmbeddingAudio
     extend MarkdownFilters::Filterable
   
-    filter_with :embedded_audio do |text|
+    filter_with :embeddingaudio do |text|
       MarkdownFilters::EmbeddingAudio.run text
     end
   
