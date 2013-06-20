@@ -26,6 +26,7 @@ module MarkdownFilters
     #     text * 3
     #   end
     def filter_with name, &block
+      name = name.to_sym
       filters << name unless filters.include? name
       define_method name do |current=self, options=nil|
         if current.respond_to? :keys
