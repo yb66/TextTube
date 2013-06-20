@@ -25,15 +25,18 @@ module MarkdownFilters
           \]\]                      # closing square brackets
         /x
     
-    # a lambda function to transform a link and a number into a markdown reference link
+    # a lambda function to transform a link and a number into a markdown reference link.
     # @param [String] lnk The url.
     # @param [String] num The reference number.
     Reffer = ->(lnk, num){ %Q![#{lnk}](##{num} "Jump to reference")!}
 
+    # A lambda to transform a link and a number to a HTML reference link.
     RefHTMLer = ->(lnk, num){ %Q!<a href="##{num}" title="Jump to reference">#{lnk}</a>!  }
 
+    # A lambda to transform a href and a description into an HTML link.
     HTMLer = ->(lnk, desc){ %Q! <a href="#{lnk}">#{desc}</a>!  }
 
+    # A lambda to transform a link and a description into an inline Markdown link.
     Markdowner = ->(lnk, desc){ %Q! [#{desc}](#{lnk})! }
 
 #     Noner = ->(_,_) { "" } # this isn't needed but will sit here as a reminder.
