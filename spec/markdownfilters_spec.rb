@@ -175,7 +175,7 @@ rainfall 99_998
 HTML
       }
       let(:my_f) { MyFilter.new content }
-      subject { my_f.filter :embedded_video, :embedded_audio, :linkreffed, :rdiscount, :coderay, :inside_blocks }
+      subject { my_f.filter :embeddingvideo, :embeddingaudio, :linkreffing, :rdiscount, :coderay, :insideblock }
       it { should == expected }
     end
 
@@ -242,17 +242,17 @@ EXPECTED
         end
       end
       context "With options passed to filter" do
-        subject { MyFilter.new(content).filter :embedded_video, :embedded_audio, :linkreffed, :rdiscount, :linkreffed => {kind: :none} }
+        subject { MyFilter.new(content).filter :embeddingvideo, :embeddingaudio, :linkreffing, :rdiscount, :linkreffing => {kind: :none} }
         it { should == expected }
       end
       context "With options set on the instance" do
-        subject { MyFilter.new(content, :linkreffed => {kind: :none}).filter :embedded_video, :embedded_audio, :linkreffed, :rdiscount }
+        subject { MyFilter.new(content, :linkreffing => {kind: :none}).filter :embeddingvideo, :embeddingaudio, :linkreffing, :rdiscount }
         it { should == expected }
       end
       context "With options set on the instance" do
         subject {
-          MyFilter.options.merge! :linkreffed => {kind: :none}
-          MyFilter.new(content).filter :embedded_video, :embedded_audio, :linkreffed, :rdiscount }
+          MyFilter.options.merge! :linkreffing => {kind: :none}
+          MyFilter.new(content).filter :embeddingvideo, :embeddingaudio, :linkreffing, :rdiscount }
         it { should == expected }
       end
     end
