@@ -49,6 +49,22 @@ CODE
             it { should_not be_nil }
             it { should == expected }
           end
+          context "That has a 'skip' language hint" do
+            let(:content) { <<CODE
+<pre><code>::::skip
+{"one" => 1 }
+</code></pre>
+CODE
+            }          
+            let(:expected) { <<CODE
+<pre><code>{"one" =&gt; 1 }</code></pre>
+CODE
+            }
+  
+            subject { MarkdownFilters::Coderay.run content }
+            it { should_not be_nil }
+            it { should == expected }
+          end
         end # context
         
         context "With no code to be rayed in it" do
