@@ -39,14 +39,18 @@ module MarkdownFilters
   #   n
   #   # => "abc"
   class Base < ::String
-  
-    DEFAULT_OPTIONS = {}
-    attr_accessor :config
+
+    # @!attribute [rw] options
+    #   This instance's options.
+    #   @return [Hash]
+    attr_accessor :options
 
     # @param [#to_s] text The original text.
-    # @param [Hash] options
+    # @param [Hash] options Options that will be passed on to every instance.
+    # @example
+    #   n = NeuS.new "abc"
     def initialize( text, options={} )
-      @options = DEFAULT_OPTIONS.merge options
+      @options = options
       @filters ||= []
       super text
     end
@@ -54,6 +58,7 @@ module MarkdownFilters
 
     class << self
 
+      # Global options. Every descendant will get these.
       def options
         @options ||= {}
       end
@@ -71,7 +76,7 @@ module MarkdownFilters
       end
 
 
-      # Register a module of filters
+      # Register a module of filters.
       # @example
       #   class MyFilter < MarkdownFilters::Base
       #     register MarkdownFilters::LinkReffing
@@ -82,6 +87,12 @@ module MarkdownFilters
       #       end
       #     end
       #   end
+      #
+      # I could've made it so there's no need to write the
+      # `filter_with` part, but this way your code will be 
+      # clearer to those reading it later, and you can add 
+      # in any other stuff you want done too, you don't just 
+      # have to set up a filter.
       def register( filter=nil, &block )
         @filters ||= []
         if block
@@ -96,7 +107,9 @@ module MarkdownFilters
         include filter
       end
 
-    
+
+      # A clean slate
+      # @private
       def inherited(subclass)
         subclass.reset!
       end
@@ -104,16 +117,25 @@ module MarkdownFilters
 
 
     # Run the filters. If the names of filters are provided as arguments then only those filters will be run, in that order (left first, to right).
-    # @example
-    #   n = NeuS.new "abc"
-    #   n.filter
-    #   # => "---a b ca b ca b ca b ca b ca b c---"
-    #   n.filter :spacial
-    #   # => "a b c"
-    #   n.filter :spacial, :dashes
-    #   # => "---a b c---"
-    #   n.filter :dashes, :spacial
-    #   # => "- - - a b c - - -"
+    # @overload filter()
+    #   Run all the filters in the order they were registered.
+    #     n = NeuS.new "abc"
+    #     n.filter
+    #     # => "---a b ca b ca b ca b ca b ca b c---"
+    # @overload filter( filters )
+    #   Run the given filters in the order given.
+    #   @param [Array<#to_sym>] filters
+    #   @example
+    #     n = NeuS.new "abc"
+    #     n.filter :spacial
+    #     # => "a b c"
+    #     n.filter :spacial, :dashes
+    #     # => "---a b c---"
+    # @overload filter( filters_and_options )
+    #   Run the given filters in the order given with the given options. Pass any options for a filter at the end, by giving the options as a hash with the name of the filter. I'd prefer to give the filter name and the options at the same time, but the Ruby argument parser can't handle it, which is fair enough :)
+    #   @example
+    #     n = NeuS.new "abc"
+    #     n.filter :dashes, :spacial, :dashes => {some_option_for_dashes: true}
     def filter( *order_and_options )
       if order_and_options.last.respond_to?(:keys)
         *order,options = *order_and_options

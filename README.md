@@ -4,7 +4,7 @@ I use these, you can use them too!
 
 NOTE! This library is going through a *lot* of changes right now. Use directly at your peril! Feel free to take what you need from the source though, if you feel there may be something useful there.
 
-### Link Reffing ###
+### LinkReffing ###
 
 If you'd don't want your links inline and would prefer to have them at the bottom of the document, then you can use this:
     
@@ -17,6 +17,81 @@ and it will produce this:
     
     
     <a name="1"></a>&#91;1&#93; [http://iainbarnett.me.uk](http://iainbarnett.me.uk "http://iainbarnett.me.uk") My blog
+
+### InsideBlock ###
+
+Sometimes it'd be useful to wrap some markdown with HTML, for example:
+
+    <div id="notes">
+    
+    * first
+    * second
+    * third
+    
+    </div>
+
+If you put this through a markdown parser the markdown won't get parsed:
+
+    require 'rdiscount'
+    s = "<div id="notes">\n\n* first\n* second\n* third\n\n</div>\n"
+    puts RDiscount.new(s).to_html
+
+This is the output:
+
+    <div id="notes">
+    
+    * first
+    * second
+    * third
+    
+    </div>
+
+My brilliant idea to get around this is to add an HTML attribute of `markdown='1'` to HTML tags that you want the markdown parser to look inside:
+
+    <div id="notes" markdown='1'>
+    
+    * first
+    * second
+    * third
+    
+    </div>
+
+Trying this with `InsideBlock` gives:
+
+    puts MarkdownFilters::InsideBlock.run s
+
+    <div id="notes">
+    <ul>
+    <li>first</li>
+    <li>second</li>
+    <li>third</li>
+    </ul>
+    
+    </div>
+
+To use it as a filter:
+
+    require 'markdownfilters/base'
+    
+    class MyFilter < MarkdownFilters::Base
+      register MarkdownFilters::InsideBlock
+    end
+    
+    myf = MyFilter.new(s)
+    # => "<div id="notes" markdown='1'>\n\n* first\n* second\n* third\n\n</div>\n"
+    
+    puts myf.filter
+
+Gives:
+
+    <div id="notes">
+    <ul>
+    <li>first</li>
+    <li>second</li>
+    <li>third</li>
+    </ul>
+    
+    </div>
 
 
 ### Licence ###

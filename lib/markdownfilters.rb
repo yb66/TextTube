@@ -15,7 +15,7 @@ module MarkdownFilters
        .reject{|name| name.end_with? "version.rb" }
        .map{|filter| 
          tf = require filter
-         [File.basename(filter, ".rb"), tf]
+         [File.basename(filter, ".rb").gsub("_",""), tf]
        }
   end
 
