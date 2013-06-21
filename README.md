@@ -160,6 +160,8 @@ Run that through a markdown parser and you get:
     
     </div>
 
+Using this will probably end up with also using InsideBlock, to transform the markdown inside the div.
+
 ### InsideBlock ###
 
 Sometimes it'd be useful to wrap some markdown with HTML, for example:
@@ -235,6 +237,57 @@ Gives:
     
     </div>
 
+### Coderay ###
+
+Filters an HTML code block and marks it up with [coderay](http://coderay.rubychan.de/):
+
+
+
+    require 'markdownfilters/base'
+    require 'markdownfilters/filters/coderay'
+    require 'rdiscount' # a markdown parser
+    
+    class TextWithCode < MarkdownFilters::Base
+      register do
+        filter_with :rdiscount do |text|
+          RDiscount.new(text).to_html
+        end
+      end
+      register MarkdownFilters::Coderay
+    end
+
+    s = TextWithCode.new <<'STR'
+    # FizzBuzz #
+    
+        ::::ruby
+        (1..100).each do |n| 
+          out = "#{n}: "
+          out << "Fizz" if n % 3 == 0
+          out << "Buzz" if n % 5 == 0
+          puts out
+        end
+    
+    That's all folks!
+    STR
+    # => "# FizzBuzz #\n\n    ::::ruby\n    (1..100).each do |n| \n      out = "\#{n}: "\n      out << "Fizz" if n % 3 == 0\n      out << "Buzz" if n % 5 == 0\n      puts out\n    end\n\nThat's all folks!\n"
+
+
+    puts s.filter
+
+Produces:
+
+    <h1>FizzBuzz</h1>
+    
+    <pre><code class="CodeRay">(<span class="integer">1</span>..<span class="integer">100</span>).each <span class="keyword">do</span> |n| 
+      out = <span class="string"><span class="delimiter">"</span><span class="inline"><span class="inline-delimiter">#{</span>n<span class="inline-delimiter">}</span></span><span class="content">: </span><span class="delimiter">"</span></span>
+      out &lt;&lt; <span class="string"><span class="delimiter">"</span><span class="content">Fizz</span><span class="delimiter">"</span></span> <span class="keyword">if</span> n % <span class="integer">3</span> == <span class="integer">0</span>
+      out &lt;&lt; <span class="string"><span class="delimiter">"</span><span class="content">Buzz</span><span class="delimiter">"</span></span> <span class="keyword">if</span> n % <span class="integer">5</span> == <span class="integer">0</span>
+      puts out
+    <span class="keyword">end</span></code></pre>
+    
+    <p>That's all folks!</p>
+
+The language was specified with a leading `::::ruby`. It didn't have to be as the default is to use Ruby, but if you want to use any other of the Coderay supported languages, that's how to do it.
 
 ### Licence ###
 
