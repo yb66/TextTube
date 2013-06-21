@@ -287,7 +287,7 @@ Produces:
     
     <p>That's all folks!</p>
 
-The language was specified with a leading `::::ruby`. It didn't have to be as the default is to use Ruby, but if you want to use any other of the Coderay supported languages, that's how to do it.
+The language was specified with a leading `::::ruby`. It didn't have to be as the default is to use Ruby, but if you want to use any other of the [coderay supported languages](http://coderay.rubychan.de/doc/CodeRay/Scanners.html), that's how to do it.
 
 ### Licence ###
 
