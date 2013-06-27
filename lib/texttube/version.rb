@@ -2,5 +2,5 @@
 
 module TextTube
   # This library's version.
-  VERSION = "5.0.1"
+  VERSION = "5.0.2"
 end
