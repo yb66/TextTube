@@ -2,6 +2,14 @@
 
 Pass a string through filters to transform it.
 
+### Build status ###
+
+Master branch:
+[![Build Status](https://travis-ci.org/yb66/TextTube.png?branch=master)](https://travis-ci.org/yb66/TextTube)
+
+Develop branch:
+[![Build Status](https://travis-ci.org/yb66/TextTube.png?branch=develop)](https://travis-ci.org/yb66/TextTube)
+
 ### Why? ###
 
 I wanted to run a filter across articles I'd written for [my blog](http://iainbarnett.me.uk/), but also for the atom feed to the blog. Both needed some of the filters, but the atom feed needed less of them and slightly different options.
