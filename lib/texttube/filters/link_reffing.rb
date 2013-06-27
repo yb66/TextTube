@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require_relative "../filterable.rb"
 
-module MarkdownFilters
+module TextTube
   
   # @author Iain Barnett
   # A class to take links in the format `[[link|description]]` and give them a number reference, then output them in markdown format. Note: this is not the same as reference links in markdown, this is more akin to the way books will refer to references or footnotes with a number.
@@ -9,8 +9,8 @@ module MarkdownFilters
   module LinkReffing
     extend Filterable
     
-    filter_with :linkreffed do |text, options|
-      MarkdownFilters::LinkReffing.run text, options
+    filter_with :linkreffing do |text, options|
+      TextTube::LinkReffing.run text, options
     end
     
     # These are the html codes for superscript 0 - 9
@@ -25,15 +25,18 @@ module MarkdownFilters
           \]\]                      # closing square brackets
         /x
     
-    # a lambda function to transform a link and a number into a markdown reference link
+    # a lambda function to transform a link and a number into a markdown reference link.
     # @param [String] lnk The url.
     # @param [String] num The reference number.
     Reffer = ->(lnk, num){ %Q![#{lnk}](##{num} "Jump to reference")!}
 
+    # A lambda to transform a link and a number to a HTML reference link.
     RefHTMLer = ->(lnk, num){ %Q!<a href="##{num}" title="Jump to reference">#{lnk}</a>!  }
 
+    # A lambda to transform a href and a description into an HTML link.
     HTMLer = ->(lnk, desc){ %Q! <a href="#{lnk}">#{desc}</a>!  }
 
+    # A lambda to transform a link and a description into an inline Markdown link.
     Markdowner = ->(lnk, desc){ %Q! [#{desc}](#{lnk})! }
 
 #     Noner = ->(_,_) { "" } # this isn't needed but will sit here as a reminder.

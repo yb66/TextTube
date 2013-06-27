@@ -1,9 +1,9 @@
-module MarkdownFilters
+module TextTube
 
   # Add this to your filter module.
   # @example
   #   module AFilter
-  #     extend MarkdownFilters::Filterable
+  #     extend TextTube::Filterable
   #   
   #     filter_with :double do |text|
   #       text * 2
@@ -16,6 +16,7 @@ module MarkdownFilters
   module Filterable
 
     # See all current filters.
+    # @return [Array<Symbol>]
     def filters
       @filters ||= []
     end
@@ -25,7 +26,13 @@ module MarkdownFilters
     #   filter_with :triple do |text|
     #     text * 3
     #   end
+    #   filter_with :number do |text,options|
+    #     text * options[:times].to_i
+    #   end
+    # @param [#to_sym] name
+    # @yield [String, Hash] Pass the string to be filtered, and optionally, any options.
     def filter_with name, &block
+      name = name.to_sym
       filters << name unless filters.include? name
       define_method name do |current=self, options=nil|
         if current.respond_to? :keys
@@ -43,4 +50,4 @@ module MarkdownFilters
     end
 
   end # Filterable
-end # MarkdownFilters
+end # TextTube

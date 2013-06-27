@@ -1,10 +1,10 @@
 # encoding: UTF-8
 
 require 'spec_helper'
-require_relative '../lib/markdownfilters/base.rb'
-require_relative '../lib/markdownfilters/filterable.rb'
+require_relative '../lib/texttube/base.rb'
+require_relative '../lib/texttube/filterable.rb'
 
-describe "MarkdownFilters" do
+describe "TextTube" do
   let(:content) { <<MARKDOWN
 ## The Rainfall Problem ##
 
@@ -54,7 +54,7 @@ MARKDOWN
   context "with simple examples" do
     before :all do
       module AFilter
-        extend MarkdownFilters::Filterable
+        extend TextTube::Filterable
       
         filter_with :double do |text|
           text * 2
@@ -66,14 +66,14 @@ MARKDOWN
       end
       
       module BFil
-        extend MarkdownFilters::Filterable
+        extend TextTube::Filterable
       
         filter_with :spacial do |current,options|
           current.split(//).join " " 
         end
       end
       
-      class NeuS < MarkdownFilters::Base
+      class NeuS < TextTube::Base
         register BFil
         register AFilter
         register do
@@ -104,18 +104,18 @@ MARKDOWN
     end
   end
   context "Real examples" do
-    require_relative "../lib/markdownfilters.rb"
+    require_relative "../lib/texttube.rb"
     require 'rdiscount'
 
     context "An article that needs all the filters" do
       before :all do
-        MarkdownFilters.load_all_filters
-        class MyFilter < MarkdownFilters::Base
-          register MarkdownFilters::Coderay
-          register MarkdownFilters::LinkReffing
-          register MarkdownFilters::EmbeddingAudio
-          register MarkdownFilters::EmbeddingVideo
-          register MarkdownFilters::InsideBlock
+        TextTube.load_all_filters
+        class MyFilter < TextTube::Base
+          register TextTube::Coderay
+          register TextTube::LinkReffing
+          register TextTube::EmbeddingAudio
+          register TextTube::EmbeddingVideo
+          register TextTube::InsideBlock
           register do
             filter_with :rdiscount do |text|
               RDiscount.new(text).to_html
@@ -175,8 +175,23 @@ rainfall 99_998
 HTML
       }
       let(:my_f) { MyFilter.new content }
-      subject { my_f.filter :embedded_video, :embedded_audio, :linkreffed, :rdiscount, :coderay, :inside_blocks }
+      subject { my_f.filter :embeddingvideo, :embeddingaudio, :linkreffing, :rdiscount, :coderay, :insideblock }
       it { should == expected }
+      
+      describe "With options" do
+        context "Passed to the class" do
+          before :all do
+            MyFilter.options.merge! :linkreffing => {kind: :none}
+          end
+          subject { MyFilter.new(content).filter :embeddingvideo, :embeddingaudio, :linkreffing, :rdiscount, :coderay, :insideblock }
+          it { should_not == expected }
+
+          context "and passed to filter" do
+            subject { MyFilter.new(content).filter :embeddingvideo, :embeddingaudio, :linkreffing, :rdiscount, :coderay, :insideblock, :linkreffing => {kind: :reference} }
+            it { should == expected }
+          end
+        end
+      end
     end
 
     context "An atom feed that only needs some of the filters" do
@@ -229,11 +244,11 @@ rainfall 99_998
 EXPECTED
       }
       before :all do
-        MarkdownFilters.load_all_filters
-        class MyFilter < MarkdownFilters::Base
-          register MarkdownFilters::LinkReffing
-          register MarkdownFilters::EmbeddingAudio
-          register MarkdownFilters::EmbeddingVideo
+        TextTube.load_all_filters
+        class MyFilter < TextTube::Base
+          register TextTube::LinkReffing
+          register TextTube::EmbeddingAudio
+          register TextTube::EmbeddingVideo
           register do
             filter_with :rdiscount do |text|
               RDiscount.new(text).to_html
@@ -241,19 +256,24 @@ EXPECTED
           end
         end
       end
-      context "With options passed to filter" do
-        subject { MyFilter.new(content).filter :embedded_video, :embedded_audio, :linkreffed, :rdiscount, :linkreffed => {kind: :none} }
-        it { should == expected }
-      end
-      context "With options set on the instance" do
-        subject { MyFilter.new(content, :linkreffed => {kind: :none}).filter :embedded_video, :embedded_audio, :linkreffed, :rdiscount }
-        it { should == expected }
-      end
-      context "With options set on the instance" do
-        subject {
-          MyFilter.options.merge! :linkreffed => {kind: :none}
-          MyFilter.new(content).filter :embedded_video, :embedded_audio, :linkreffed, :rdiscount }
-        it { should == expected }
+      describe "With options" do
+        context "passed to filter" do
+          subject { MyFilter.new(content).filter :embeddingvideo, :embeddingaudio, :linkreffing, :rdiscount, :linkreffing => {kind: :none} }
+          it { should == expected }
+        end
+        context "set on the instance" do
+          subject { MyFilter.new(content, :linkreffing => {kind: :none}).filter :embeddingvideo, :embeddingaudio, :linkreffing, :rdiscount }
+          it { should == expected }
+        end
+        context "set on the class" do
+          before :all do
+            MyFilter.options.merge! :linkreffing => {kind: :none}
+          end
+
+          subject {
+            MyFilter.new(content).filter :embeddingvideo, :embeddingaudio, :linkreffing, :rdiscount }
+          it { should == expected }
+        end
       end
     end
   end

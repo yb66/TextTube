@@ -1,5 +1,5 @@
 # encoding: UTF-8
-module MarkdownFilters
+module TextTube
 
   require 'nokogiri'
   require_relative "../../ext/blank.rb"
@@ -11,7 +11,7 @@ module MarkdownFilters
     extend Filterable
 
     filter_with :coderay do |text|
-      MarkdownFilters::Coderay.run text
+      TextTube::Coderay.run text
     end
 
 
