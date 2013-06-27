@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require_relative "../filterable.rb"
 
-module MarkdownFilters
+module TextTube
   
   # @author Iain Barnett
   # A class to take links in the format `[[link|description]]` and give them a number reference, then output them in markdown format. Note: this is not the same as reference links in markdown, this is more akin to the way books will refer to references or footnotes with a number.
@@ -10,7 +10,7 @@ module MarkdownFilters
     extend Filterable
     
     filter_with :linkreffing do |text, options|
-      MarkdownFilters::LinkReffing.run text, options
+      TextTube::LinkReffing.run text, options
     end
     
     # These are the html codes for superscript 0 - 9

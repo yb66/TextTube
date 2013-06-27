@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-module MarkdownFilters
+module TextTube
   module CoreExtensions
   
     def blank?
@@ -13,5 +13,5 @@ end
 
 # Standard lib class.
 class Hash
-  include MarkdownFilters::CoreExtensions
+  include TextTube::CoreExtensions
 end

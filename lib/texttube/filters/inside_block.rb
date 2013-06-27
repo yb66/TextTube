@@ -2,14 +2,14 @@
 require 'nokogiri'
 require_relative "../filterable.rb"
 
-module MarkdownFilters
+module TextTube
   
   # This finds html tags with "markdown='1'" as an attribute, runs markdown over the contents, then removes the markdown attribute, allowing markdown within html blocks
   module InsideBlock
-    extend MarkdownFilters::Filterable
+    extend TextTube::Filterable
   
     filter_with :insideblock do |text|
-      MarkdownFilters::InsideBlock.run text
+      TextTube::InsideBlock.run text
     end
     
     # @param [String] content

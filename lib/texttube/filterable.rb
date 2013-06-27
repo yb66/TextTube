@@ -1,9 +1,9 @@
-module MarkdownFilters
+module TextTube
 
   # Add this to your filter module.
   # @example
   #   module AFilter
-  #     extend MarkdownFilters::Filterable
+  #     extend TextTube::Filterable
   #   
   #     filter_with :double do |text|
   #       text * 2
@@ -50,4 +50,4 @@ module MarkdownFilters
     end
 
   end # Filterable
-end # MarkdownFilters
+end # TextTube

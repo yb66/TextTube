@@ -1,11 +1,11 @@
 # encoding: utf-8
 
 require 'spec_helper'
-require_relative "../lib/markdownfilters.rb"
-require_relative "../lib/markdownfilters/filters/coderay.rb"
+require_relative "../lib/texttube.rb"
+require_relative "../lib/texttube/filters/coderay.rb"
 
-module MarkdownFilters
-  describe MarkdownFilters do
+module TextTube
+  describe TextTube do
     
     let(:coderayed){ 
 %Q!<h2>Hello</h2>\n\n<p>This is some code:</p>\n\n<pre><code class="CodeRay">[<span class="integer">1</span>,<span class="integer">2</span>,<span class="integer">3</span>].map{|x| + <span class="integer">1</span> }\n</code></pre>\n\n<p>And this is the result:\n  [2,3,4]</p>\n\n<p>Thankyou</p>\n!
@@ -36,16 +36,16 @@ HTML
 CODE
             }
   
-            subject { MarkdownFilters::Coderay.run content }
+            subject { TextTube::Coderay.run content }
             it { should_not be_nil }
             it { should == expected }
-            it { should_not == MarkdownFilters::Coderay.run(wrong) }
+            it { should_not == TextTube::Coderay.run(wrong) }
           end
           context "That has no language hint" do
             let(:content) { notrayed }
             let(:expected) { coderayed }
   
-            subject { MarkdownFilters::Coderay.run content }
+            subject { TextTube::Coderay.run content }
             it { should_not be_nil }
             it { should == expected }
           end
@@ -61,7 +61,7 @@ CODE
 CODE
             }
   
-            subject { MarkdownFilters::Coderay.run content }
+            subject { TextTube::Coderay.run content }
             it { should_not be_nil }
             it { should == expected }
           end
@@ -70,18 +70,18 @@ CODE
         context "With no code to be rayed in it" do
           let(:content) { %Q$The[UtterFAIL website](http://utterfail.info/ "UtterFAIL!") is good.$ }
           let(:expected) { content }
-          subject { MarkdownFilters::Coderay.run content }
+          subject { TextTube::Coderay.run content }
           it { should_not be_nil }
           it { should == expected }
         end # context
       end # context
       
       context "Given no text" do
-        subject { MarkdownFilters::Coderay.run "" }
+        subject { TextTube::Coderay.run "" }
         it { should_not be_nil }
         it { should == "" }
       end # context
       
     end # describe Coderay
-  end # describe MarkdownFilters
+  end # describe TextTube
 end # module

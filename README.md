@@ -1,4 +1,4 @@
-## Markdown Filters ##
+## TextTube ##
 
 I use these, you can use them too!
 
@@ -22,10 +22,10 @@ You want to filter/transform a string. You also want to run several filters acro
 In practice this means:
 
 
-    require 'markdownfilters/filterable'
+    require 'texttube/filterable'
 
     module AFilter
-      extend MarkdownFilters::Filterable
+      extend TextTube::Filterable
     
       filter_with :double do |text|
         text * 2
@@ -37,16 +37,16 @@ In practice this means:
     end
     
     module BFil
-      extend MarkdownFilters::Filterable
+      extend TextTube::Filterable
     
       filter_with :spacial do |current,options|
         current.split(//).join " " 
       end
     end
 
-    require 'markdownfilters/base'
+    require 'texttube/base'
 
-    class NeuS < MarkdownFilters::Base
+    class NeuS < TextTube::Base
       register BFil
       register AFilter
       register do # on the fly
@@ -81,10 +81,10 @@ Run them more than once:
 
 Make something _filterable_:
 
-    require 'markdownfilters/filterable'
+    require 'texttube/filterable'
 
     module AnotherFilter
-      extend MarkdownFilters::Filterable
+      extend TextTube::Filterable
     
       filter_with :copyright do |text|
         text << " ©#{Time.now.year}. "
@@ -101,9 +101,9 @@ That's all there is to creating a filter.
 
 The class picks which filters to use, and can add filters on the fly, by using `register`:
 
-    require 'markdownfilters/base'
+    require 'texttube/base'
     
-    class MyString < MarkdownFilters::Base
+    class MyString < TextTube::Base
       register AnotherFilter
       register do
         filter_with :my_name do |text|
@@ -130,11 +130,11 @@ Here are some ready built filters to use.
 
 If you'd don't want your links inline and would prefer to have them at the bottom of the document, then you can use this:
 
-    require 'markdownfilters/base'
-    require 'markdownfilters/filters/link_reffing'
+    require 'texttube/base'
+    require 'texttube/filters/link_reffing'
     
-    class TextWithLinks < MarkdownFilters::Base
-      register MarkdownFilters::LinkReffing
+    class TextWithLinks < TextTube::Base
+      register TextTube::LinkReffing
     end
     
     s = TextWithLinks.new %q!Iain's blog[[http://iainbarnett.me.uk|My blog]] is good. Erik Hollensbe's blog[[http://erik.hollensbe.org/|Holistic Engineering]] is also good, as is James Coglan's blog[[http://blog.jcoglan.com/|The If Works]]!
@@ -202,7 +202,7 @@ My brilliant idea to get around this is to add an HTML attribute of `markdown='1
 
 Trying this with `InsideBlock` gives:
 
-    puts MarkdownFilters::InsideBlock.run s
+    puts TextTube::InsideBlock.run s
 
     <div id="notes">
     <ul>
@@ -215,10 +215,10 @@ Trying this with `InsideBlock` gives:
 
 To use it as a filter:
 
-    require 'markdownfilters/base'
+    require 'texttube/base'
     
-    class MyFilter < MarkdownFilters::Base
-      register MarkdownFilters::InsideBlock
+    class MyFilter < TextTube::Base
+      register TextTube::InsideBlock
     end
     
     myf = MyFilter.new(s)
@@ -243,17 +243,17 @@ Filters an HTML code block and marks it up with [coderay](http://coderay.rubycha
 
 
 
-    require 'markdownfilters/base'
-    require 'markdownfilters/filters/coderay'
+    require 'texttube/base'
+    require 'texttube/filters/coderay'
     require 'rdiscount' # a markdown parser
     
-    class TextWithCode < MarkdownFilters::Base
+    class TextWithCode < TextTube::Base
       register do
         filter_with :rdiscount do |text|
           RDiscount.new(text).to_html
         end
       end
-      register MarkdownFilters::Coderay
+      register TextTube::Coderay
     end
 
     s = TextWithCode.new <<'STR'

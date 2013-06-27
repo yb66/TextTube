@@ -1,4 +1,4 @@
-module MarkdownFilters
+module TextTube
 
   # Core lib extensions reside here.
   module CoreExtensions
@@ -22,5 +22,5 @@ end
 
 # Standard lib String class gets some extras.
 class String
-  include MarkdownFilters::CoreExtensions
+  include TextTube::CoreExtensions
 end
