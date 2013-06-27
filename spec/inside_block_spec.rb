@@ -1,6 +1,6 @@
 require 'spec_helper'
-require_relative "../lib/markdownfilters.rb"
-require_relative "../lib/markdownfilters/filters/inside_block.rb"
+require_relative "../lib/texttube.rb"
+require_relative "../lib/texttube/filters/inside_block.rb"
 
 describe "InsideBlock" do
   let(:content) { <<HTML
@@ -29,6 +29,6 @@ HTML
 </div>
 HTML
   }
-  subject { MarkdownFilters::InsideBlock.run content }
+  subject { TextTube::InsideBlock.run content }
   it { should == expected }
 end

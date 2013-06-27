@@ -1,14 +1,14 @@
 # encoding: UTF-8
 require_relative "../filterable.rb"
 
-module MarkdownFilters
+module TextTube
 
   # Embed some audio via [audio[link|name]]
   module EmbeddingAudio
-    extend MarkdownFilters::Filterable
+    extend TextTube::Filterable
   
     filter_with :embeddingaudio do |text|
-      MarkdownFilters::EmbeddingAudio.run text
+      TextTube::EmbeddingAudio.run text
     end
   
     # default attributes

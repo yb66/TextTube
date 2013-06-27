@@ -1,5 +1,20 @@
 # CH CH CH CHANGES! #
 
+## Thursday the 27th of June, 2013, ##
+
+### v5.0.3 ###
+
+* Included link to source in gemspec.
+
+----
+
+### v5.0.2 ###
+
+* Renamed library.
+
+----
+
+
 ## Monday the 10th of June, 2013 ##
 
 ### v5.0.1 ###

@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-module MarkdownFilters
+module TextTube
   # This library's version.
-  VERSION = "5.0.1"
+  VERSION = "5.0.3"
 end

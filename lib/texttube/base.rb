@@ -1,10 +1,10 @@
-module MarkdownFilters
+module TextTube
 
   # Inherit from this and wrap it around a string and
   # you can then run filters against it.
   # @example
   #   module AFilter
-  #     extend MarkdownFilters::Filterable
+  #     extend TextTube::Filterable
   #   
   #     filter_with :double do |text|
   #       text * 2
@@ -16,14 +16,14 @@ module MarkdownFilters
   #   end
   #   
   #   module BFil
-  #     extend MarkdownFilters::Filterable
+  #     extend TextTube::Filterable
   #   
   #     filter_with :spacial do |current,options|
   #       current.split(//).join " " 
   #     end
   #   end
   #   
-  #   class NeuS < MarkdownFilters::Base
+  #   class NeuS < TextTube::Base
   #     register BFil
   #     register AFilter
   #     register do
@@ -78,9 +78,9 @@ module MarkdownFilters
 
       # Register a module of filters.
       # @example
-      #   class MyFilter < MarkdownFilters::Base
-      #     register MarkdownFilters::LinkReffing
-      #     register MarkdownFilters::Coderay
+      #   class MyFilter < TextTube::Base
+      #     register TextTube::LinkReffing
+      #     register TextTube::Coderay
       #     register do
       #       filter_with :dashes do |text|
       #         "---#{text}---"
