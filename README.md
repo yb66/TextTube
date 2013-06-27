@@ -1,13 +1,10 @@
 ## TextTube ##
 
-I use these, you can use them too!
-
-NOTE! This library is going through a *lot* of changes right now. Use directly at your peril! Feel free to take what you need from the source though, if you feel there may be something useful there.
-
+Pass a string through filters to transform it.
 
 ### Why? ###
 
-I wanted to run a filter across articles I'd written for my blog, but also for the atom feed to the blog. Both needed some of the filters, but the atom feed needed less of them and slightly different options.
+I wanted to run a filter across articles I'd written for [my blog](iainbarnett.me.uk/), but also for the atom feed to the blog. Both needed some of the filters, but the atom feed needed less of them and slightly different options.
 
 
 ### What does it do? ###
