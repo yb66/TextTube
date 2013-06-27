@@ -17,4 +17,5 @@ Gem::Specification.new do |s|
   s.add_dependency("coderay", '~>1.0' )
   s.email          = "iainspeed @nospam@ gmail.com"
   s.test_files     = `git ls-files -- {test,spec,features}`.split("\n")
+  s.homepage       = "https://github.com/yb66/TextTube"
 end
