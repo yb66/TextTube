@@ -2,6 +2,10 @@
 
 Pass a string through filters to transform it.
 
+### Note! ###
+
+This is the **hpricot** branch. It specifically deals with [the problem given here](http://stackoverflow.com/questions/8598958/can-i-incorporate-system-libraries-e-g-libxml2-i-compile-against-into-a-gem) where Nokogiri doesn't work properly on Heroku. When using the InsideBlocks filter this can be a problem, so this branch uses Hpricot instead.
+
 ### Why? ###
 
 I wanted to run a filter across articles I'd written for [my blog](http://iainbarnett.me.uk/), but also for the atom feed to the blog. Both needed some of the filters, but the atom feed needed less of them and slightly different options.
