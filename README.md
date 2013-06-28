@@ -2,6 +2,10 @@
 
 Pass a string through filters to transform it.
 
+### Note! ###
+
+If you're having a problem with the TextTube::InsideBlock filter on Heroku it could be because of the version of Libxml2 it uses, as [the problem given here states](http://stackoverflow.com/q/8598958/335847), which means Nokogiri won't always work properly on Heroku. When using the InsideBlock filter this can be a problem, so use the `hpricot` branch instead.
+
 ### Build status ###
 
 Master branch:
