@@ -298,10 +298,6 @@ Produces:
 
 The language was specified with a leading `::::ruby`. It didn't have to be as the default is to use Ruby, but if you want to use any other of the [coderay supported languages](http://coderay.rubychan.de/doc/CodeRay/Scanners.html), that's how to do it.
 
-### Contributors ###
-
-Many thanks to Eleni Karinou and [Annette Smith](https://twitter.com/moosecatear) for brainsplatting a new name for the library, and after many unusable and clearly disturbing suggestions, to Annette for the final name (and its future spin off, which will remain secret for now).
-
 ### Spiffing ###
 
 Transforms CSS written in British English into its ugly sister from across the pond. Inspired by [visualidiot's SpiffingCSS](http://spiffingcss.com/).
@@ -346,6 +342,11 @@ Transforms CSS written in British English into its ugly sister from across the p
     }
 
 God save the Queen!
+
+
+### Contributors ###
+
+Many thanks to Eleni Karinou and [Annette Smith](https://twitter.com/moosecatear) for brainsplatting a new name for the library, and after many unusable and clearly disturbing suggestions, to Annette for the final name (and its future spin off, which will remain secret for now).
 
 
 ### Licence ###

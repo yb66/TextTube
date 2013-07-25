@@ -1,5 +1,12 @@
 # CH CH CH CHANGES! #
 
+## Next release ##
+
+* Fixed mis-ordering of sections in README.
+
+----
+
+
 ## Thursday the 25th of July, 2013, v5.1.0 ##
 
 * Make CSS spiffing!
