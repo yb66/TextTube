@@ -302,6 +302,52 @@ The language was specified with a leading `::::ruby`. It didn't have to be as th
 
 Many thanks to Eleni Karinou and [Annette Smith](https://twitter.com/moosecatear) for brainsplatting a new name for the library, and after many unusable and clearly disturbing suggestions, to Annette for the final name (and its future spin off, which will remain secret for now).
 
+### Spiffing ###
+
+Transforms CSS written in British English into its ugly sister from across the pond. Inspired by [visualidiot's SpiffingCSS](http://spiffingcss.com/).
+
+    content = <<CSS
+      body {
+        background-colour: darkgrey;
+        background-photograph: url(logo.gif);
+        transparency: .7;
+      
+        font: 72px "Comic Sans", cursive !please;
+        font-weight: plump;
+        p { text-align: centre }
+        fieldset input {
+          text-transform: capitalise;
+        }
+      }
+    CSS
+
+    require 'texttube/base'
+    require 'texttube/filters/spiffing'
+
+    class CssString < TextTube::Base
+      register TextTube::Spiffing
+    end
+
+    puts CssString.new(content).filter
+
+    # output:
+
+    body {
+      background-color: darkgray;
+      background-image: url(logo.gif);
+      opacity: .7;
+    
+      font: 72px "Comic Sans", cursive !important;
+      font-weight: bold;
+      p { text-align: center }
+      fieldset input {
+        text-transform: capitalize;
+      }
+    }
+
+God save the Queen!
+
+
 ### Licence ###
 
 Copyright (c) 2013 Iain Barnett
