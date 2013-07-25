@@ -1,5 +1,12 @@
 # CH CH CH CHANGES! #
 
+## Thursday the 25th of July, 2013, v5.1.0 ##
+
+* Make CSS spiffing!
+
+----
+
+
 ## Thursday the 27th of June, 2013, ##
 
 ### v5.0.3 ###
