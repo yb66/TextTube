@@ -300,7 +300,7 @@ The language was specified with a leading `::::ruby`. It didn't have to be as th
 
 ### Spiffing ###
 
-Transforms CSS written in British English into its ugly sister from across the pond. Inspired by [visualidiot's SpiffingCSS](http://spiffingcss.com/).
+Transforms CSS written in British English into its ugly sister from across the pond. Inspired by [visualidiot's SpiffingCSS](https://github.com/visualidiot/Spiffing).
 
     content = <<CSS
       body {
