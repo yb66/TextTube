@@ -1,7 +1,9 @@
 # CH CH CH CHANGES! #
 
-## Next release ##
+## Wednesday the 30th of July 2014, v5.1.1 ##
 
+* Updated info in the README about Spiffing CSS website, since it's gone.
+* Fixed description of running the filters in the README.
 * Fixed mis-ordering of sections in README.
 
 ----
