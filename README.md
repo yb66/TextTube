@@ -65,7 +65,7 @@ In practice this means:
       end
     end
 
-Now there is a class `NeuS` which will run filters `:double`, `:triple` and `spacial` in that order, on a given string. For example:
+Now there is a class `NeuS` which will run filters `:spacial`, `:double`, `:triple`, and `:dashes` in that order, on a given string. For example:
 
     n = NeuS.new "abc"
 
