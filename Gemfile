@@ -21,4 +21,5 @@ group :test do
   gem "maruku"
   gem "rdiscount"
   gem "kramdown"
+  gem "rspec-its"
 end
