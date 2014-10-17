@@ -1,5 +1,13 @@
 # CH CH CH CHANGES! #
 
+## Friday the 17th of October 2014, v6.0.0 ##
+
+* Moved extra filters into TextTubeBaby to make the library lighter and easier to install.
+* Updated specs to check core lib now filter specs have gone.
+
+----
+
+
 ## Wednesday the 30th of July 2014, v5.1.1 ##
 
 * Updated info in the README about Spiffing CSS website, since it's gone.
