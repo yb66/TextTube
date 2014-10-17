@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'rspec/its'
-require_relative "../lib/texttube/base.rb"
-require_relative "../lib/texttube/filterable.rb"
+require_relative "texttube/base.rb"
+require_relative "texttube/filterable.rb"
 
 module TextTube # for convenience
 
