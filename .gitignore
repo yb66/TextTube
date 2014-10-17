@@ -20,3 +20,6 @@ Gemfile.lock
 bin/
 vendor/
 coverage/
+docs/
+.yardoc/
+.bundle/
