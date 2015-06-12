@@ -141,12 +141,12 @@ s.filter
 
 ### Ready made filters ###
 
-They used to come with this library, but sometimes they caused problems with installation (things like Nokogiri can be painful to install at times) so I spun them off into their own library - TextTubeBaby!
+They used to come with this library, but sometimes they caused problems with installation (things like Nokogiri can be painful to install at times) so I spun them off into their own library - [TextTubeBaby](https://github.com/yb66/TextTubeBaby)!
 
 
 ### Contributors ###
 
-Many thanks to Eleni Karinou and [Annette Smith](https://twitter.com/moosecatear) for brainsplatting a new name for the library, and after many unusable and clearly disturbing suggestions, to Annette for the final name (and its spin off, TextTubeBaby).
+Many thanks to Eleni Karinou and [Annette Smith](https://twitter.com/moosecatear) for brainsplatting a new name for the library, and after many unusable and clearly disturbing suggestions, to Annette for the final name (and its spin off, [TextTubeBaby](https://github.com/yb66/TextTubeBaby)).
 
 
 ### Licence ###
