@@ -26,79 +26,90 @@ You want to filter/transform a string. You also want to run several filters acro
 
 In practice this means:
 
+```ruby
+require 'texttube/filterable'
 
-    require 'texttube/filterable'
+module AFilter
+  extend TextTube::Filterable
 
-    module AFilter
-      extend TextTube::Filterable
-    
-      filter_with :double do |text|
-        text * 2
-      end
-    
-      filter_with :triple do |text|
-        text * 3
-      end
+  filter_with :double do |text|
+    text * 2
+  end
+
+  filter_with :triple do |text|
+    text * 3
+  end
+end
+
+module BFil
+  extend TextTube::Filterable
+
+  filter_with :spacial do |current,options|
+    current.split(//).join " " 
+  end
+end
+
+require 'texttube/base'
+
+class NeuS < TextTube::Base
+  register BFil
+  register AFilter
+  register do # on the fly
+    filter_with :dashes do |text|
+      "---#{text}---"
     end
-    
-    module BFil
-      extend TextTube::Filterable
-    
-      filter_with :spacial do |current,options|
-        current.split(//).join " " 
-      end
-    end
-
-    require 'texttube/base'
-
-    class NeuS < TextTube::Base
-      register BFil
-      register AFilter
-      register do # on the fly
-        filter_with :dashes do |text|
-          "---#{text}---"
-        end
-      end
-    end
+  end
+end
+```
 
 Now there is a class `NeuS` which will run filters `:spacial`, `:double`, `:triple`, and `:dashes` in that order, on a given string. For example:
 
-    n = NeuS.new "abc"
+```ruby
+n = NeuS.new "abc"
+```
 
 Running all of the filters:
 
-    n.filter
-    # => "---a b ca b ca b ca b ca b ca b c---"
+```ruby
+n.filter
+# => "---a b ca b ca b ca b ca b ca b c---"
+```
 
 Or just some of the filters:
 
-    n.filter :spacial
-    # => "a b c"
-    n.filter :spacial, :dashes
-    # => "---a b c---"
+```
+n.filter :spacial
+# => "a b c"
+n.filter :spacial, :dashes
+# => "---a b c---"
+```
 
 Run them more than once:
-    
-    n.filter :double, :triple, :double
-    # => "abcabcabcabcabcabcabcabcabcabcabcabc"
+
+```ruby
+n.filter :double, :triple, :double
+# => "abcabcabcabcabcabcabcabcabcabcabcabc"
+```
 
 ### Creating a filter ###
 
 Make something _filterable_:
 
-    require 'texttube/filterable'
+```ruby
+require 'texttube/filterable'
 
-    module AnotherFilter
-      extend TextTube::Filterable
-    
-      filter_with :copyright do |text|
-        text << " ©#{Time.now.year}. "
-      end
-    
-      filter_with :number do |text,options|
-        text * options[:times].to_i
-      end
-    end
+module AnotherFilter
+  extend TextTube::Filterable
+
+  filter_with :copyright do |text|
+    text << " ©#{Time.now.year}. "
+  end
+
+  filter_with :number do |text,options|
+    text * options[:times].to_i
+  end
+end
+```
 
 That's all there is to creating a filter.
 
@@ -106,25 +117,27 @@ That's all there is to creating a filter.
 
 The class picks which filters to use, and can add filters on the fly, by using `register`:
 
-    require 'texttube/base'
-    
-    class MyString < TextTube::Base
-      register AnotherFilter
-      register do
-        filter_with :my_name do |text|
-          text.gsub "Iain Barnett", %q!<a href="iainbarnett.me.uk" title="My blog">Iain Barnett</a>!
-        end
-      end
+```ruby
+require 'texttube/base'
+
+class MyString < TextTube::Base
+  register AnotherFilter
+  register do
+    filter_with :my_name do |text|
+      text.gsub "Iain Barnett", %q!<a href="iainbarnett.me.uk" title="My blog">Iain Barnett</a>!
     end
-    
-    s = MyString.new "Let me introduce Iain Barnett. He writes Ruby code."
-    # => "Let me introduce Iain Barnett. He writes Ruby code."
+  end
+end
 
-    MyString.options.merge! :number => {times: 2}
-    # => {:number=>{:times=>2}}
+s = MyString.new "Let me introduce Iain Barnett. He writes Ruby code."
+# => "Let me introduce Iain Barnett. He writes Ruby code."
 
-    s.filter
-    # => "Let me introduce <a href="iainbarnett.me.uk" title="My blog">Iain Barnett</a>. He writes Ruby code. ©2013. Let me introduce <a href="iainbarnett.me.uk" title="My blog">Iain Barnett</a>. He writes Ruby code. ©2013. "
+MyString.options.merge! :number => {times: 2}
+# => {:number=>{:times=>2}}
+
+s.filter
+# => "Let me introduce <a href="iainbarnett.me.uk" title="My blog">Iain Barnett</a>. He writes Ruby code. ©2013. Let me introduce <a href="iainbarnett.me.uk" title="My blog">Iain Barnett</a>. He writes Ruby code. ©2013. "
+```
 
 ### Ready made filters ###
 
