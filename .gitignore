@@ -19,6 +19,7 @@ rdoc
 Gemfile.lock
 bin/
 vendor/
+vendor.noindex/
 coverage/
 docs/
 .yardoc/
