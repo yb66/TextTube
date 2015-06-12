@@ -1,5 +1,14 @@
 # CH CH CH CHANGES! #
 
+
+## Friday the 12th of June 2015, v6.1.0 ##
+
+* Got rid of some ext methods that weren't needed or used.
+* Updated the docs for Github with the syntax highlighting hints.
+
+----
+
+
 ## Friday the 17th of October 2014, v6.0.0 ##
 
 * Moved extra filters into TextTubeBaby to make the library lighter and easier to install.
