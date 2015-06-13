@@ -142,8 +142,9 @@ module TextTube
       else
         order,options = order_and_options, {}
       end
-      order = order.flatten
-      order = @options.fetch :order, self.class.filters if order.empty?
+      options = self.class.options.merge(@options.merge(options))
+      order.flatten!
+      order = options.fetch :order, self.class.filters if order.empty?
       order.inject(self){|current,filter|
         send filter, current, options
       }

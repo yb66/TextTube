@@ -38,7 +38,7 @@ describe "Example usage" do
 		end
 	end # before
 
-	context "Instantiation" do
+	context "Simple" do
 		let(:n) { NeuS.new "abc" }
 		subject { n }
 		it { should == "abc" }
@@ -57,6 +57,44 @@ describe "Example usage" do
 				it { should == "- - - a   b   c - - -" }
 			end
 		end
+	end
+	context "with global options" do
+	  context "To set the order" do
+	    before :all do
+	      NeuS.options.merge! :order=>[:spacial, :dashes, :spacial]
+	    end
+      let(:n) { NeuS.new "abc" }
+      subject { n }
+      it { should == "abc" }
+      context "filtered" do
+        subject { n.filter }
+        it { should == "- - - a   b   c - - -" }
+      end
+      context "and given instance options" do
+        subject { n.filter :order=>[:dashes, :double, :spacial] }
+        it { should == "- - - a b c - - - - - - a b c - - -" }
+      end
+      context "with a different instance" do
+        let(:m) { NeuS.new "def" }
+        subject { m }
+        it { should == "def" }
+        context "filtered" do
+          subject { m.filter }
+          it { should == "- - - d   e   f - - -" }
+        end        
+      end
+    end
+	end
+	context "with options passed to the instance" do
+	  context "To set the order" do
+      let(:n) { NeuS.new "abc", :order=>[:spacial, :dashes, :spacial] }
+      subject { n }
+      it { should == "abc" }
+      context "filtered" do
+        subject { n.filter }
+        it { should == "- - - a   b   c - - -" }
+      end
+    end
 	end
 end
 
