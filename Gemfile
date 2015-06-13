@@ -12,7 +12,7 @@ end
 
 group :development do
   gem "rdiscount"
-  gem "wirble"
+  gem "pry-byebug"
 end
 
 group :test do
