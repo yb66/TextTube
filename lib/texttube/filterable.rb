@@ -35,10 +35,6 @@ module TextTube
       name = name.to_sym
       filters << name unless filters.include? name
       define_method name do |current=self, options=nil|
-        if current.respond_to? :keys
-          options=current
-          current=self
-        end
         options = [options, @options, self.class.options].find{|opts|
           !opts.nil? && 
           opts.respond_to?(:keys) && 
