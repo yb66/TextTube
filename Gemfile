@@ -1,4 +1,4 @@
-# A sample Gemfile
+RUBY_ENGINE = 'ruby' unless defined? RUBY_ENGINE
 source "https://rubygems.org"
 
 gemspec
@@ -11,7 +11,9 @@ group :documentation do
 end
 
 group :development do
-  gem "pry-byebug"
+  unless RUBY_ENGINE == 'jruby' || RUBY_ENGINE == "rbx"
+    gem "pry-byebug"
+  end
 end
 
 group :test do
