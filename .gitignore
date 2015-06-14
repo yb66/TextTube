@@ -22,5 +22,6 @@ vendor/
 vendor.noindex/
 coverage/
 docs/
+doc/
 .yardoc/
 .bundle/
