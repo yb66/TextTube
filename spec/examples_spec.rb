@@ -61,15 +61,6 @@ describe "Example usage" do
 			end
 		end
 
-    class FutureString < TextTube::Base
-      register AnotherFilter
-      register do
-        filter_with :read_more do |text,options|
-          text + options[:teaser]
-        end
-      end
-    end
-
     class Optional < TextTube::Base
       register do
         filter_with :something_with_options do |text,options|
@@ -83,6 +74,19 @@ describe "Example usage" do
         end
       end
     end
+
+    class FutureString < TextTube::Base
+      register do
+        filter_with :read_more do |text,options|
+          text + " " + options.fetch(:teaser, "READ MORE")
+        end
+        filter_with :add_title do |text,options|
+          title = "#{options.fetch(:title, 'My article')}\n\n"
+          title + text
+        end
+      end
+    end
+
 	end # before
 
 	context "Simple" do
@@ -216,6 +220,14 @@ describe "Example usage" do
       end
     end
 	end
+
+  describe "Naming options" do
+    let(:future) { FutureString.new "It's looking bright!" }
+    subject{
+      future.filter :read_more =>{teaser: "carry on reading…"}, :add_title =>{title: "Feeling optimistic"}
+    }
+    it { should == "Feeling optimistic\n\nIt's looking bright! carry on reading…" }
+  end
 
 	describe "Block option arguments" do
     let(:optional){ Optional.new "Does this block have an options argument?" }
