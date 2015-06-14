@@ -139,6 +139,113 @@ s.filter
 # => "Let me introduce <a href="iainbarnett.me.uk" title="My blog">Iain Barnett</a>. He writes Ruby code. ©2013. Let me introduce <a href="iainbarnett.me.uk" title="My blog">Iain Barnett</a>. He writes Ruby code. ©2013. "
 ```
 
+### Options ###
+
+There are 3 types of options available:
+
+#### Class options ####
+
+These options are available for all instances of that class. One was used in the previous example:
+
+```ruby
+MyString.options.merge! :number => {times: 2}
+```
+
+#### Instance options ####
+
+Using this type of option will mean that option is used with this instance and no other. It will override class options:
+
+```ruby
+m = NeuS.new "abc", :order=>[:dashes, :double, :spacial]
+m.filter # will use :dashes, :double, :spacial
+```
+
+#### Method options ####
+
+These will affect only this call of the `filter` method:
+
+```ruby
+# this does :triple, :dashes, :spacial
+m.filter :order=>[:triple, :dashes, :spacial]
+# this does :dashes, :double, :spacial
+m.filter
+```
+
+Of course, if you just want to effect the order in a one off call then `m.filter :triple, :dashes, :spacial` would work just as well.
+
+If you have several filters and you want to pass some options then you need give the name of the filter along with the options. Here's an example:
+
+```ruby
+class FutureString < TextTube::Base
+  register do
+    filter_with :read_more do |text,options|
+      text + " " + options.fetch(:teaser, "READ MORE")
+    end
+    filter_with :add_title do |text,options|
+      title = "#{options.fetch(:title, 'My article')}\n\n"
+      title + text
+    end
+  end
+end
+
+future = FutureString.new "It's looking bright!"
+future.filter :read_more =>{teaser: "carry on reading…"}, :add_title =>{title: "Feeling optimistic"}
+```
+
+Which would output:
+
+> Feeling optimistic
+> 
+> It's looking bright! carry on reading…
+
+You can see from this example that you can register more than one filter on the fly within a register block.
+
+
+#### Overrides ####
+
+Keep in mind that class options are overriden by instance options, and instance options (and class options) are overriden by method options.
+
+#### Note! ####
+
+Options are only applied if you pass a block with the 2nd options argument available. For example, this will apply options:
+
+```ruby
+class Optional < TextTube::Base
+  register do
+    filter_with :something_with_options do |text,options|
+      extras = options.fetch :extra, " "
+      text + extras + "This should be ok."
+    end
+  end
+end
+
+This will not:
+
+class Optional < TextTube::Base
+  register do
+    filter_with :something_without_options do |text|
+      text + options + "This will throw an error."
+    end
+  end
+end
+```
+
+If you don't plan to use the options then don't provide them as an argument, but don't refer to them in the block, e.g.
+
+class NotBothered < TextTube::Base
+  register do
+    filter_with :something_without_options do |text|
+      text + "We're just not giving you the option."
+    end
+  end
+end
+
+
+### All of these examples have been used as specs ###
+
+Take a look and run them.
+
+
 ### Ready made filters ###
 
 They used to come with this library, but sometimes they caused problems with installation (things like Nokogiri can be painful to install at times) so I spun them off into their own library - [TextTubeBaby](https://github.com/yb66/TextTubeBaby)!

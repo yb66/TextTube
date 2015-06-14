@@ -58,11 +58,6 @@ module TextTube
 
     class << self
 
-      # Global options. Every descendant will get these.
-      def options
-        @options ||= {}
-      end
-
       # remove all filters
       # @todo remove methods too.
       def reset!
@@ -112,6 +107,13 @@ module TextTube
       # @private
       def inherited(subclass)
         subclass.reset!
+        
+        # Per class options
+        subclass.instance_eval do
+          def options
+            @options ||= {}
+          end
+        end
       end
     end
 
@@ -142,8 +144,9 @@ module TextTube
       else
         order,options = order_and_options, {}
       end
-      order = order.flatten
-      order = @options.fetch :order, self.class.filters if order.empty?
+      options = self.class.options.merge(@options.merge(options))
+      order.flatten!
+      order = options.fetch :order, self.class.filters if order.empty?
       order.inject(self){|current,filter|
         send filter, current, options
       }
