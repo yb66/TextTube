@@ -17,3 +17,8 @@ branches:
   only:
     - master
     - develop
+
+matrix:
+  allow_failures:
+    - rvm: jruby-head
+    - rvm: ruby-head
