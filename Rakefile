@@ -2,11 +2,11 @@
 
 desc "(Re-) generate documentation and place it in the docs/ dir."
 task :docs => :"docs:yard"  
-namespace :docs do
+namespace :doc do
   require 'yard'
   YARD::Rake::YardocTask.new do |t|
     t.files   = ['lib/**/*.rb']
-    t.options = ['-odocs/', '--no-private']
+    t.options = ['-odoc/', '--no-private']
   end
 
   desc "Docs including private methods."
