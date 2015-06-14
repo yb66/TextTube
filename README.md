@@ -232,6 +232,7 @@ end
 
 If you don't plan to use the options then don't provide them as an argument, but don't refer to them in the block, e.g.
 
+```ruby
 class NotBothered < TextTube::Base
   register do
     filter_with :something_without_options do |text|
@@ -239,6 +240,7 @@ class NotBothered < TextTube::Base
     end
   end
 end
+```
 
 
 ### All of these examples have been used as specs ###
