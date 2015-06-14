@@ -65,7 +65,21 @@ describe "Example usage" do
       register AnotherFilter
       register do
         filter_with :read_more do |text,options|
-          text << options[:teaser]
+          text + options[:teaser]
+        end
+      end
+    end
+
+    class Optional < TextTube::Base
+      register do
+        filter_with :something_with_options do |text,options|
+          extras = options.fetch :extra, " "
+          text + extras + "This should be ok."
+        end
+      end
+      register do
+        filter_with :something_without_options do |text|
+          text + options + "This will throw an error."
         end
       end
     end
@@ -201,6 +215,39 @@ describe "Example usage" do
         end
       end
     end
+	end
+
+	describe "Block option arguments" do
+    let(:optional){ Optional.new "Does this block have an options argument?" }
+	  context "Given a block" do
+	    context "with an options argument *and* that uses the options" do
+        context "with method options" do
+          subject { optional.filter :something_with_options, :something_with_options => {extra: " Yes, I told you so. " } }
+          it { should == "Does this block have an options argument? Yes, I told you so. This should be ok." }
+        end
+        context "without method options" do
+          subject { optional.filter :something_with_options }
+          it { should == "Does this block have an options argument? This should be ok." }
+        end
+      end
+      context "without an options argument *and* a block that uses the options" do
+        context "with method options" do
+          it "should raise an error" do
+            expect{
+              optional.filter :something_without_options, :something_without_options => {extra: " Yes, I told you so. " }
+            }.to raise_error(NameError)
+          end
+        end
+        context "without method options" do
+          it "should raise an error" do
+            expect{
+              optional.filter :something_without_options
+            }.to raise_error(NameError)
+          end
+        end
+      end
+    end
+	  
 	end
 end
 

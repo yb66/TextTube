@@ -41,7 +41,7 @@ module TextTube
           !opts.empty?
         } || {}
 
-        block.call current, options[name]
+        block.call current, (options[name] || {})
       end
     end
 
