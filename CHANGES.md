@@ -1,12 +1,21 @@
 # CH CH CH CHANGES! #
 
-## Sunday the 14th of June 2015, v7.0.0 ##
+## Sunday the 14th of June 2015# 
+
+# v7.0.1 ##
+
+* Added fences to code block in example.
+
+----
+
+# v7.0.0 #
 
 * Added more examples of how to use options.
 * Cleaned up the options a lot, clarified and better tested.
 * Fixed the ever moving target of the Travis-CI settings.
 
 ----
+
 
 ## Friday the 12th of June 2015, v6.1.0 ##
 
